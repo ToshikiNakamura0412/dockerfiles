@@ -15,7 +15,9 @@ RUN groupadd --gid $USER_GID $USERNAME \
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-${ROS_DISTRO}-desktop \
-    python3-catkin-tools
+    python3-catkin-tools \
+    pcl-tools \
+    libpcl-dev
 RUN apt-get update && apt-get install -y --no-install-recommends \
     bash-completion \
     tree
