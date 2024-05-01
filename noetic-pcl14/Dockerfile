@@ -5,8 +5,7 @@ ARG PCL_VERSION=1.14.0
 RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends \
     wget \
     unzip \
-    pcl-tools \
-    libflann-dev
+    pcl-tools
 RUN cd ~/ \
     && wget -O pcl.zip https://github.com/PointCloudLibrary/pcl/archive/refs/tags/pcl-${PCL_VERSION}.zip \
     && unzip pcl.zip \
