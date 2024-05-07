@@ -11,7 +11,6 @@ services:
       context: .
       dockerfile: Dockerfile
     ipc: host
-    network_mode: "host"
     tty: true
     privileged: true
     environment:
