@@ -15,7 +15,8 @@ RUN groupadd --gid $USER_GID $USERNAME \
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-${ROS_DISTRO}-desktop \
-    python3-catkin-tools
+    python3-catkin-tools \
+    ros-${ROS_DISTRO}-gazebo-ros-pkgs
 RUN apt-get update && apt-get install -y --no-install-recommends \
     bash-completion \
     tree
