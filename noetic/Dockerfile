@@ -15,7 +15,7 @@ RUN groupadd --gid $USER_GID $USERNAME \
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-${ROS_DISTRO}-desktop \
-    ros-${ROS_DISTRO}-gazebo-ros-pkgs
+    ros-${ROS_DISTRO}-gazebo-ros-pkgs \
     python3-catkin-tools \
     python3-vcstool
 RUN apt-get update && apt-get install -y --no-install-recommends \
