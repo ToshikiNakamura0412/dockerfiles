@@ -9,8 +9,11 @@
                 "ms-vscode.cpptools",
                 "ms-vscode.cpptools-extension-pack",
                 "ms-vscode.cpptools-themes",
-                "ms-python.vscode-pylance",
                 "ms-python.python",
+                "ms-python.black-formatter",
+                "ms-python.isort",
+                "ms-python.flake8",
+                "ms-python.mypy-type-checker"
             ]
         }
     }
