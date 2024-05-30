@@ -1,5 +1,3 @@
-version: "3.9"
-
 x-workspace-source: &WORKSPACE_SOURCE "~/ros2_ws"
 x-bag-source: &BAG_SOURCE "~/bagfiles"
 x-pcd-source: &PCD_SOURCE "~/pcd"
