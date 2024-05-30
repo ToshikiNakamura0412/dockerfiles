@@ -89,3 +89,6 @@ code .
 ## Recommendation
 - It is recommended that you build the image provided and create an image based on it.
 - Use `docker compose up` to check if the build is done correctly.
+
+## References
+- https://github.com/amslabtech/amsl_ros_docker_ws
