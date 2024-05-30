@@ -15,6 +15,7 @@ services:
       TERM: screen-256color
       LANG: C.UTF-8
       DISPLAY: $DISPLAY
+      NVIDIA_DRIVER_CAPABILITIES: all
     volumes:
       - type: bind
         source: /tmp/.X11-unix
