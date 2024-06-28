@@ -5,13 +5,9 @@
 - Docker of some Linux distribution
 - [dotfiles](https://github.com/ToshikiNakamura0412/dotfiles_for_docker.git) is included in the image
 
-## Clone
+## Installation
 ```
 git clone https://github.com/ToshikiNakamura0412/dockerfiles.git ~/dockerfiles
-```
-
-## Setup
-```
 ~/dockerfiles/setup.sh
 ```
 
