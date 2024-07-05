@@ -48,5 +48,7 @@ services:
 volumes:
   apt-cache-apt-lists:
     name: ros-noetic-apt-cache-apt-lists
+    external: true
   apt-cache-apt-archives:
     name: ros-noetic-apt-cache-apt-archives
+    external: true
