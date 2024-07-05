@@ -15,6 +15,9 @@ fi
 if [ ! -d ~/pcd ]; then
     mkdir -v ~/pcd
 fi
+if [ ! -d ~/dataset ]; then
+    mkdir -v ~/dataset
+fi
 
 echo ""
 echo "==="

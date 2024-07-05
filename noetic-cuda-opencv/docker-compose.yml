@@ -1,6 +1,7 @@
 x-workspace-source: &WORKSPACE_SOURCE "~/ros1_ws"
 x-bag-source: &BAG_SOURCE "~/bagfiles"
 x-pcd-source: &PCD_SOURCE "~/pcd"
+x-dataset-source: &DATASET_SOURCE "~/dataset"
 
 services:
   ws:
@@ -29,6 +30,9 @@ services:
       - type: bind
         source: *PCD_SOURCE
         target: /home/user/pcd
+      - type: bind
+        source: *DATASET_SOURCE
+        target: /home/user/dataset
       - type: volume
         source: apt-cache-apt-lists
         target: /var/lib/apt/lists
