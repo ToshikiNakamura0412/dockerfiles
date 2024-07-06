@@ -5,7 +5,6 @@ x-dataset-source: &DATASET_SOURCE "~/dataset"
 
 services:
   ws:
-    container_name: noetic-ws
     build:
       context: .
       dockerfile: Dockerfile

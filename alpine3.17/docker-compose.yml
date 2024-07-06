@@ -2,7 +2,6 @@ x-workspace-source: &WORKSPACE_SOURCE "~/ws"
 
 services:
   ws:
-    container_name: alpine3.17-ws
     build:
       context: .
       dockerfile: Dockerfile

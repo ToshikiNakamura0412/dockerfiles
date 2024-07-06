@@ -2,7 +2,6 @@ x-workspace-source: &WORKSPACE_SOURCE "~/ws"
 
 services:
   ws:
-    container_name: ubuntu22.04-ws
     build:
       context: .
       dockerfile: Dockerfile

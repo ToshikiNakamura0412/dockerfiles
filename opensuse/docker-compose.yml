@@ -4,7 +4,6 @@ x-workspace-source: &WORKSPACE_SOURCE "~/ws"
 
 services:
   ws:
-    container_name: opensuse-ws
     build:
       context: .
       dockerfile: Dockerfile
