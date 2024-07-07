@@ -81,6 +81,7 @@ cd <distro dir>
 code .
 ```
 - Click on `Reopen in container` to run container
+- If you don't click on `Reopen in container`, execute `~/install_vscode_extensions.sh` in the container to install the extension
 
 ## Recommendation
 - It is recommended that you build the image provided and create an image based on it.
