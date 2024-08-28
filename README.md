@@ -6,7 +6,7 @@
 - [dotfiles](https://github.com/ToshikiNakamura0412/dotfiles_for_docker.git) is included in the image
 
 ## Installation
-```
+```bash
 git clone https://github.com/ToshikiNakamura0412/dockerfiles.git ~/dockerfiles
 ~/dockerfiles/setup.sh
 ```
@@ -51,11 +51,18 @@ git clone https://github.com/ToshikiNakamura0412/dockerfiles.git ~/dockerfiles
   - ROS2: `~/ros2_ws`
 - container: `~/ws`
 
+If you change base directory paths, please execute following command.
+```bash
+cd ~/dockerfiles
+./change_root_dir.sh <new_root_dir>
+./setup.sh
+```
+
 ### Usage
 If you do not have a GPU, comment out the deploy section in docker-compose.yml.
 
 #### basic usage
-```
+```bash
 cd <distro dir>
 docker compose up [option -d]  # create and start
 docker compose start           # start
@@ -64,7 +71,7 @@ docker compose down            # stop and remove
 ```
 
 #### use Shell
-```
+```bash
 # bash (All Distro Support)
 cd <distro dir>
 docker compose exec ws bash
@@ -76,7 +83,7 @@ docker compose exec ws zsh
 
 #### use VSCode
 prerequisite: extension `ms-vscode-remote.remote-containers`
-```
+```bash
 cd <distro dir>
 code .
 ```
