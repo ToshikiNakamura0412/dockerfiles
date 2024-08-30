@@ -25,7 +25,8 @@ RUN rm /etc/apt/apt.conf.d/docker-clean
 ENV SHELL /bin/bash
 
 USER $USERNAME
-RUN git clone --recursive https://github.com/ToshikiNakamura0412/dotfiles_for_docker.git ~/dotfiles
+RUN git clone --recursive https://github.com/ToshikiNakamura0412/dotfiles.git ~/dotfiles
 RUN ~/dotfiles/install.sh
+RUN ~/dotfiles/scripts/change_tmux_conf.sh C-q snow
 
 CMD ["/bin/bash"]

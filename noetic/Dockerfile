@@ -36,8 +36,9 @@ CMD ["/bin/bash"]
 
 
 # Use dotfiles
-RUN git clone --recursive https://github.com/ToshikiNakamura0412/dotfiles_for_docker.git ~/dotfiles
+RUN git clone --recursive https://github.com/ToshikiNakamura0412/dotfiles.git ~/dotfiles
 RUN ~/dotfiles/install.sh
+RUN ~/dotfiles/scripts/change_tmux_conf.sh C-q snow
 RUN echo "source /opt/ros/${ROS_DISTRO}/setup.zsh" >> ~/.zshrc
 RUN echo "source ~/ws/devel/setup.zsh" >> ~/.zshrc
 RUN echo "export ROS_DISTRO=${ROS_DISTRO}" >> ~/.zshrc
