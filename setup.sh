@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ ! -d ~/ws ]; then
-    mkdir -v ~/ws
+    mkdir -pv ~/ws
 fi
 if [ ! -d ~/ros1_ws/src ]; then
     mkdir -pv ~/ros1_ws/src
@@ -10,13 +10,13 @@ if [ ! -d ~/ros2_ws/src ]; then
     mkdir -pv ~/ros2_ws/src
 fi
 if [ ! -d ~/bagfiles ]; then
-    mkdir -v ~/bagfiles
+    mkdir -pv ~/bagfiles
 fi
 if [ ! -d ~/pcd ]; then
-    mkdir -v ~/pcd
+    mkdir -pv ~/pcd
 fi
 if [ ! -d ~/dataset ]; then
-    mkdir -v ~/dataset
+    mkdir -pv ~/dataset
 fi
 
 echo ""
