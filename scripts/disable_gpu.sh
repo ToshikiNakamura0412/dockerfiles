@@ -1,7 +1,10 @@
 #!/bin/bash
 
-DISTROS=$(ls -d */ | sed 's/\///g')
+SCRIPT_DIR=$(cd $(dirname $0); pwd)
+DISTROS=$(ls -d ${SCRIPT_DIR}/../*/ | sed 's|'${SCRIPT_DIR}\/..\/'||g' | sed 's/\///g')
 
-for distro_dir in ${DISTROS[@]}; do
-    sed -i '/deploy/,+6d' ${distro_dir}/docker-compose.yml
+for distro in ${DISTROS[@]}; do
+    if [[ ${distro} != "scripts" ]]; then
+        sed -i '/deploy/,+6d' ${SCRIPT_DIR}/../${distro}/docker-compose.yml
+    fi
 done
