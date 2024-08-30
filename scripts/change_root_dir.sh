@@ -15,8 +15,8 @@ function change_root_dir() {
     fi
 
     echo "Change root directory from ${old_root_dir} to ${new_root_dir}"
-    find . -type f -name "docker-compose.yml" -exec sed -i 's|\"'${old_root_dir}'|\"'${new_root_dir}'|g' {} \;
-    find . -type f -name "setup.sh" -exec sed -i 's|'${old_root_dir}'|'${new_root_dir}'|g' {} \;
+    find ${SCRIPT_DIR}/../ -type f -name "docker-compose.yml" -exec sed -i 's|\"'${old_root_dir}'|\"'${new_root_dir}'|g' {} \;
+    find ${SCRIPT_DIR}/../ -type f -name "setup.sh" -exec sed -i 's|'${old_root_dir}'|'${new_root_dir}'|g' {} \;
     echo ${new_root_dir} > ${SCRIPT_DIR}/root_dir.log
 }
 
