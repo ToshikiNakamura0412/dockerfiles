@@ -1,5 +1,6 @@
 #!/bin/bash
 
+SCRIPT_DIR=$(cd $(dirname $0); pwd)
 DISTROS_USED_ZSH=("humble" "noetic-cuda" "noetic" "ubuntu20.04" "ubuntu22.04")
 
 function show_usage() {
@@ -16,22 +17,18 @@ function change_shell() {
     case ${shell_name} in
         bash)
             echo "'bash' is selected"
-            find . -type f -name "Dockerfile" -exec sed -i "/${target_string1}/d" {} \;
-            find . -type f -name "Dockerfile" -exec sed -i "/${target_string2}/d" {} \;
+            find ${SCRIPT_DIR}/../ -type f -name "Dockerfile" -exec sed -i "/${target_string1}/d" {} \;
+            find ${SCRIPT_DIR}/../ -type f -name "Dockerfile" -exec sed -i "/${target_string2}/d" {} \;
             ;;
         zsh)
             echo "'zsh' is selected"
-
             for distro_dir in ${DISTROS_USED_ZSH[@]}; do
-                count=$(grep -c "${target_string1}" ${distro_dir}/Dockerfile)
-                if [[ ${count} -eq 0 ]]; then
-                    echo ${target_string1} | sed 's/\\//g' >> ${distro_dir}/Dockerfile
-                fi
-
-                count=$(grep -c "${target_string2}" ${distro_dir}/Dockerfile)
-                if [[ ${count} -eq 0 ]]; then
-                    echo ${target_string2} | sed 's/\\//g' >> ${distro_dir}/Dockerfile
-                fi
+                for target_string in "${target_string1}" "${target_string2}"; do
+                    count=$(grep -c "${target_string}" ${SCRIPT_DIR}/../${distro_dir}/Dockerfile)
+                    if [[ ${count} -eq 0 ]]; then
+                        echo ${target_string} | sed 's/\\//g' >> ${SCRIPT_DIR}/../${distro_dir}/Dockerfile
+                    fi
+                done
             done
             ;;
         *)
