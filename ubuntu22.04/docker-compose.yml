@@ -23,6 +23,12 @@ services:
       - type: bind
         source: *WORKSPACE_SOURCE
         target: /home/user/ws
+      - type: volume
+        source: apt-cache-apt-lists
+        target: /var/lib/apt/lists
+      - type: volume
+        source: apt-cache-apt-archives
+        target: /var/cache/apt/archives
     working_dir: /home/user/ws
     command: /bin/bash -c "sudo apt update && bash"
     deploy:
@@ -32,3 +38,9 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [ gpu ]
+
+volumes:
+  apt-cache-apt-lists:
+    name: ubuntu22.04-apt-cache-apt-lists
+  apt-cache-apt-archives:
+    name: ubuntu22.04-apt-cache-apt-archives
