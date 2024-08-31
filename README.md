@@ -8,6 +8,7 @@
 
 ## Installation
 ### Clone
+Please clone to your home directory
 ```bash
 git clone https://github.com/ToshikiNakamura0412/dockerfiles.git ~/dockerfiles
 ```
