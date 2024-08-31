@@ -3,6 +3,13 @@
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
 DISTROS=$(ls -d ${SCRIPT_DIR}/../*/ | sed 's|'${SCRIPT_DIR}\/..\/'||g' | sed 's/\///g')
 
+function show_usage() {
+    echo ""
+    echo "Usage:"
+    echo "    Disable GPU: $0"
+    echo "    Enable GPU:  $0 enable_gpu"
+}
+
 function disable_gpu() {
     for distro in ${DISTROS[@]}; do
         if [[ ${distro} != "scripts" ]]; then
@@ -42,7 +49,9 @@ function enable_gpu() {
 }
 
 function main() {
-    if [[ $# -eq 0 ]]; then
+    if [[ $1 == "-h" || $1 == "--help" ]]; then
+        show_usage
+    elif [[ $# -eq 0 ]]; then
         disable_gpu
     elif [[ $1 == "enable_gpu" ]]; then
         enable_gpu

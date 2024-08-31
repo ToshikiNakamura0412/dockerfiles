@@ -12,7 +12,7 @@ help:
 	@echo "    change_root_dir  change root directory for mount (args=<new_root_dir>)"
 	@echo "    disable_gpu      disable gpu ([option] args=enable_gpu)"
 	@echo "    select_shell     select shell (args=bash or zsh)"
-	@echo "    sync_git_user    sync git user ([option] args=disable)"
+	@echo "    sync_git_user    sync git user, email, and ssh key ([option] args=disable)"
 	@echo "    clean            clean"
 	@echo ""
 	@echo "  show help of target:"

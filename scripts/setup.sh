@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ $1 == "-h" ] || [ $1 == "--help" ]; then
+    echo ""
+    echo "Usage: $0"
+    exit 0
+fi
+
 if [ ! -d ~/ws ]; then
     mkdir -pv ~/ws
 fi

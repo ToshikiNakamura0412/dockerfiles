@@ -41,7 +41,7 @@ function change_shell() {
 }
 
 function main() {
-    if [[ $1 == "-h" || $# -ne 1 ]]; then
+    if [[ $1 == "-h" || $1 == "--help" || $# -ne 1 ]]; then
         show_usage
         exit 0
     fi

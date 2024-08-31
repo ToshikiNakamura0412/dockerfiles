@@ -12,6 +12,13 @@ SEARCH_STRINGS_SSH=(
 )
 TARGET_STRING_SSH="\      - type: bind\n        source: ~/.ssh\n        target: /home/user/.ssh"
 
+function show_usage() {
+    echo ""
+    echo "Usage:"
+    echo "    Enable git sync: $0"
+    echo "    Disable git sync: $0 disable"
+}
+
 function enable_git_sync() {
     for distro in ${DISTROS[@]}; do
         if [[ ${distro} != "scripts" ]]; then
@@ -55,7 +62,9 @@ function disable_git_sync() {
 }
 
 function main() {
-    if [[ $1 == "disable" ]]; then
+    if [[ $1 == "-h" || $1 == "--help" ]]; then
+        show_usage
+    elif [[ $1 == "disable" ]]; then
         disable_git_sync
     else
         enable_git_sync
