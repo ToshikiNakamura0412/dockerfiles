@@ -4,7 +4,7 @@ args :=
 .PHONY: help change_root_dir disable_gpu select_shell setup sync_git_user clean
 
 help:
-	@echo "Usage: make [target] [args=\"<args>\"]"
+	@echo "Usage: make [target] [args=<args>]"
 	@echo ""
 	@echo "  targets:"
 	@echo "    setup \e[32m[default]\e[m  create directories for mount"
