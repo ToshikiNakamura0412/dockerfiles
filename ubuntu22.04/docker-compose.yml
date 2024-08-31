@@ -18,7 +18,7 @@ services:
         source: /tmp/.X11-unix
         target: /tmp/.X11-unix
       - type: bind
-        source: ~/dockerfiles/install_vscode_extensions.sh
+        source: ~/dockerfiles/scripts/install_vscode_extensions.sh
         target: /home/user/install_vscode_extensions.sh
       - type: bind
         source: *WORKSPACE_SOURCE
