@@ -36,5 +36,6 @@ sync_git_user:
 	@$(scripts_dir)/sync_git_user.sh $(args)
 
 clean:
+	@$(scripts_dir)/setup.sh clean
 	@git checkout -- .
 	@if [ -f root_dir.log ]; then rm root_dir.log; fi

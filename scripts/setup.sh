@@ -1,37 +1,51 @@
 #!/bin/bash
 
+DIR_LIST=(
+    ~/ws
+    ~/ros1_ws/src
+    ~/ros2_ws/src
+    ~/bagfiles
+    ~/pcd
+    ~/dataset
+)
+
 function show_usage() {
     echo ""
     echo "Usage: $0"
 }
 
 function make_dir() {
-    if [[ ! -d ~/ws ]]; then
-        mkdir -pv ~/ws
-    fi
-    if [[ ! -d ~/ros1_ws/src ]]; then
-        mkdir -pv ~/ros1_ws/src
-    fi
-    if [[ ! -d ~/ros2_ws/src ]]; then
-        mkdir -pv ~/ros2_ws/src
-    fi
-    if [[ ! -d ~/bagfiles ]]; then
-        mkdir -pv ~/bagfiles
-    fi
-    if [[ ! -d ~/pcd ]]; then
-        mkdir -pv ~/pcd
-    fi
-    if [[ ! -d ~/dataset ]]; then
-        mkdir -pv ~/dataset
-    fi
+    for dir in ${DIR_LIST[@]}; do
+        if [[ ! -d ${dir} ]]; then
+            mkdir -pv ${dir}
+        fi
+    done
 
     echo ""
-    echo "Done"
+    echo "Directories created"
+}
+
+function remove_dir() {
+    for dir in ${DIR_LIST[@]}; do
+        if [[ -d ${dir} ]]; then
+            rmdir -v ${dir}
+            if echo ${dir} | grep -q "src"; then
+                dir=$(echo ${dir} | sed 's/\/src//g')
+                echo "Removing ${dir}"
+                rmdir -v ${dir}
+            fi
+        fi
+    done
+
+    echo ""
+    echo "Directories removed"
 }
 
 function main() {
     if [[ $1 == "-h" || $1 == "--help" ]]; then
         show_usage
+    elif [[ $1 == "clean"]]; then
+        remove_dir
     else
         make_dir
     fi
