@@ -44,7 +44,7 @@ function remove_dir() {
 function main() {
     if [[ $1 == "-h" || $1 == "--help" ]]; then
         show_usage
-    elif [[ $1 == "clean"]]; then
+    elif [[ $1 == "clean" ]]; then
         remove_dir
     else
         make_dir
