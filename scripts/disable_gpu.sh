@@ -8,3 +8,6 @@ for distro in ${DISTROS[@]}; do
         sed -i '/deploy/,+6d' ${SCRIPT_DIR}/../${distro}/docker-compose.yml
     fi
 done
+
+echo ""
+echo "Disabled GPU"
