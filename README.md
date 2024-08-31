@@ -6,6 +6,11 @@
 - [dotfiles](https://github.com/ToshikiNakamura0412/dotfiles.git) is included in the image
   - tmux prefix set to `C-q`
 
+## Environment
+### Architecture
+- x86_64
+- arm64
+
 ## Installation
 ### Clone
 Please clone to your home directory
