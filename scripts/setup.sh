@@ -31,7 +31,6 @@ function remove_dir() {
             rmdir -v ${dir}
             if echo ${dir} | grep -q "src"; then
                 dir=$(echo ${dir} | sed 's/\/src//g')
-                echo "Removing ${dir}"
                 rmdir -v ${dir}
             fi
         fi
