@@ -3,12 +3,38 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 - Docker of some Linux distribution
-- [dotfiles](https://github.com/ToshikiNakamura0412/dotfiles_for_docker.git) is included in the image
+- [dotfiles](https://github.com/ToshikiNakamura0412/dotfiles.git) is included in the image
+  - tmux prefix set to `C-q`
 
 ## Installation
+### Clone
 ```bash
 git clone https://github.com/ToshikiNakamura0412/dockerfiles.git ~/dockerfiles
-~/dockerfiles/setup.sh
+```
+
+### Setup
+#### Default
+create directories (e.g. [workspace](#workspace))
+```bash
+cd ~/dockerfiles
+make setup
+```
+#### Custom
+```bash
+cd ~/dockerfiles
+make [target] [arg=<arg>]
+...
+make setup
+```
+- show help of make: `make help`
+- show help of target: `make [target] arg=-h`
+  - target: `change_root_dir`, `disable_gpu`, `select_shell`, `setup`, `sync_git_user`
+
+## Clean
+remove directories (e.g. [workspace](#workspace)) and revert to the default state
+```bash
+cd ~/dockerfiles
+make clean
 ```
 
 ## Docker
@@ -51,20 +77,11 @@ git clone https://github.com/ToshikiNakamura0412/dockerfiles.git ~/dockerfiles
   - ROS2: `~/ros2_ws`
 - container: `~/ws`
 
-If you change base directory paths, please execute following command.
-```bash
-cd ~/dockerfiles
-./change_root_dir.sh <new_root_dir>
-./setup.sh
-```
-
 ### Usage
-If you do not have a GPU, comment out the deploy section in docker-compose.yml.
-
 #### basic usage
 ```bash
 cd <distro dir>
-docker compose up [option -d]  # create and start
+docker compose up [option -d]  # create and start (-d: detached)
 docker compose start           # start
 docker compose stop            # stop
 docker compose down            # stop and remove
@@ -72,14 +89,11 @@ docker compose down            # stop and remove
 
 #### use Shell
 ```bash
-# bash (All Distro Support)
 cd <distro dir>
-docker compose exec ws bash
-
-# zsh (Ubuntu Support)
-cd <distro dir>
-docker compose exec ws zsh
+docker compose exec ws <shell>  # bash, zsh
 ```
+- bash: All Distro Support
+- zsh: Only Ubuntu Support
 
 #### use VSCode
 prerequisite: extension `ms-vscode-remote.remote-containers`
@@ -91,7 +105,7 @@ code .
 - If you don't click on `Reopen in container`, execute `~/install_vscode_extensions.sh` in the container to install the extension
 
 ## Recommendation
-- It is recommended that you build the image provided and create an image based on it.
+- If you are creating a new IMAGE, it is recommended that you build the provided image and create an image based on it.
 - Use `docker compose up` to check if the build is done correctly.
 
 ## References
