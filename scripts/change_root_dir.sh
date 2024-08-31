@@ -11,7 +11,6 @@ function change_root_dir() {
     local old_root_dir="~"
     local new_root_dir=$1
     local log_file=${SCRIPT_DIR}/../root_dir.log
-    echo ${log_file}
     if [[ -e ${log_file} ]]; then
         old_root_dir=$(cat ${log_file})
     fi
