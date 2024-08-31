@@ -14,7 +14,6 @@ TARGET_STRING_SSH="\      - type: bind\n        source: ~/.ssh\n        target: 
 
 if [[ $1 == "disable" ]]; then
     find ${SCRIPT_DIR}/../ -type f -name "Dockerfile" -exec sed -i "/${SEARCH_STRING_GIT}/d" {} \;
-    search_string_ssh=$(echo ${SEARCH_STRINGS_SSH[0]} | sed 's/\//\\\//g')
 
     for distro in ${DISTROS[@]}; do
         if [[ ${distro} != "scripts" ]]; then
@@ -26,6 +25,7 @@ if [[ $1 == "disable" ]]; then
             fi
         fi
     done
+
     echo ""
     echo "Disabled git sync"
 else
@@ -45,6 +45,7 @@ else
             fi
         fi
     done
+
     echo ""
     echo "Enabled git sync"
     echo ""
