@@ -31,7 +31,8 @@ make setup
   - target: `change_root_dir`, `disable_gpu`, `select_shell`, `setup`, `sync_git_user`
 
 ## Clean
-remove directories (e.g. [workspace](#workspace)) and revert to the default state
+- remove directories (e.g. [workspace](#workspace)) and revert to the default state
+  - **If the directories are not empty, they will not be deleted**
 ```bash
 cd ~/dockerfiles
 make clean
