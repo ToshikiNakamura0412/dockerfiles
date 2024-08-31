@@ -5,12 +5,12 @@ DISTROS=$(ls -d ${SCRIPT_DIR}/../*/ | sed 's|'${SCRIPT_DIR}\/..\/'||g' | sed 's/
 GIT_USER=$(git config user.name)
 GIT_EMAIL=$(git config user.email)
 SEARCH_STRING_GIT="user.name"
-TARGET_STRING_GIT="ENV git config --global user.name \"${GIT_USER}\" && git config --global user.email \"${GIT_EMAIL}\""
+TARGET_STRING_GIT="RUN git config --global user.name \"${GIT_USER}\" && git config --global user.email \"${GIT_EMAIL}\""
 SEARCH_STRINGS_SSH=(
     "/home/user/.ssh"
     "volumes:"
 )
-TARGET_STRING_SSH="      - type: bind\n        source: ~/.ssh\n        target: /home/user/.ssh"
+TARGET_STRING_SSH="\      - type: bind\n        source: ~/.ssh\n        target: /home/user/.ssh"
 
 if [[ $1 == "disable" ]]; then
     find ${SCRIPT_DIR}/../ -type f -name "Dockerfile" -exec sed -i "/${SEARCH_STRING_GIT}/d" {} \;
