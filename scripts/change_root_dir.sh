@@ -31,7 +31,7 @@ function main() {
     change_root_dir $1
 
     echo ""
-    echo "(If you want to revert the root directory, please run '$0 \~')"
+    echo -e "\e[33m(If you want to revert the root directory, please run '$0 \~')\e[m"
 }
 
 main $@

@@ -32,7 +32,7 @@ function change_shell() {
             done
             ;;
         *)
-            echo "Invalid shell name: ${shell_name}"
+            echo -e "\e[31mError: Invalid shell name: ${shell_name}\e[m"
             show_usage
             exit 1
             ;;
