@@ -26,6 +26,7 @@ if [[ $1 == "disable" ]]; then
             fi
         fi
     done
+    echo ""
     echo "Disabled git sync"
 else
     for distro in ${DISTROS[@]}; do
@@ -44,5 +45,8 @@ else
             fi
         fi
     done
+    echo ""
     echo "Enabled git sync"
+    echo ""
+    echo -e "\e[33m(If you want to disable git sync, please run '$0 disable')\e[m"
 fi
