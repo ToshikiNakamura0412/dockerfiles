@@ -21,7 +21,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN apt-get update && apt-get install -y --no-install-recommends \
     bash-completion \
     tree \
-    git
+    git \
+    openssh-client
 RUN rm -rf /var/lib/apt/lists/*
 RUN rm /etc/apt/apt.conf.d/docker-clean
 
