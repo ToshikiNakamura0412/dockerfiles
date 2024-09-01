@@ -8,7 +8,7 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 RUN groupadd -g $USER_GID $USERNAME \
     && useradd -u $USER_UID -g $USERNAME $USERNAME \
     && dnf check-update || true \
-    && dnf install -y sudo git vim \
+    && dnf install -y sudo \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 RUN dnf check-update || true && dnf upgrade -y
@@ -19,13 +19,12 @@ RUN dnf check-update || true && dnf upgrade -y
 #     gcc \
 #     gcc-c++ \
 #     kernel-devel \
-#     neovim \
-#     tmux \
 #     python3 \
 #     python3-devel \
 #     python3-pip \
 #     curl \
 #     tree \
+#     git \
 #     clang
 ENV SHELL /bin/bash
 

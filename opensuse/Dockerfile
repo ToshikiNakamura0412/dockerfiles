@@ -8,19 +8,18 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 RUN groupadd -g $USER_GID $USERNAME \
     && useradd -u $USER_UID -g $USER_GID -m $USERNAME \
     && zypper refresh \
-    && zypper install -y sudo git vim \
+    && zypper install -y sudo \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 RUN zypper refresh && zypper update -y
 # RUN zypper refresh && zypper install -y \
 #     cmake \
-#     neovim \
-#     tmux \
 #     python3 \
 #     python3-devel \
 #     python3-pip \
 #     curl \
 #     tree \
+#     git \
 #     clang
 # RUN zypper install -y --type pattern devel_basis
 ENV SHELL /bin/bash
