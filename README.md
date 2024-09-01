@@ -11,6 +11,10 @@
 - x86_64
 - arm64
 
+### Editor
+- VSCode
+- Neovim (Not support completion: ROS2)
+
 ## Prerequisites
 - make
 
@@ -48,49 +52,35 @@ make clean
 ```
 
 ## Docker
-### List
-- [WIP] alpine3.17
-- [WIP] debian
-- [WIP] fedora
-- humble
-  - Ubuntu22.04 + ROS2 Humble
-  - **Neovim is deprecated for ROS2 C/C++ development**
-  - Please use VSCode
-- noetic
-  - Ubuntu20.04 + ROS1 Noetic
-  - default shell: zsh
-- noetic-cuda
-  - Ubuntu20.04 + ROS1 Noetic + CUDA(devel)
-  - default shell: zsh
-- noetic-cuda-opencv
-  - Ubuntu20.04 + ROS1 Noetic + CUDA(devel) + OpenCV
-  - This is a different build procedure from the others, so please refer to [README.md](noetic-cuda-opencv/README.md)
-  - default shell: zsh
-- noetic-pcl10
-  - Ubuntu20.04 + ROS1 Noetic + PCL10
-  - This is a different build procedure from the others, so please refer to [README.md](noetic-pcl10/README.md)
-  - default shell: zsh
-- noetic-pcl14
-  - Ubuntu20.04 + ROS1 Noetic + PCL14
-  - This is a different build procedure from the others, so please refer to [README.md](noetic-pcl14/README.md)
-  - default shell: zsh
-- [WIP] opensuse
-- ubuntu20.04
-  - default shell: zsh
-- ubuntu22.04
-  - default shell: zsh
+|   | Distro | Default Shell | Base Image | Contents | README |
+|---|---|---|---|---|---|
+| [humbe](humble) | Ubuntu22.04 | zsh | [ros (Official)](https://hub.docker.com/_/ros) | ROS2 Humble |  |
+| [noetic](noetic) | Ubuntu20.04 | zsh | [ros (Official)](https://hub.docker.com/_/ros) | ROS1 Noetic |  |
+| [noetic-cuda](noetic-cuda) | Ubuntu20.04 | zsh | [cuda (Official)](https://hub.docker.com/r/nvidia/cuda) | ROS1 Noetic + CUDA-11.6.1-devel |  |
+| [noetic-cuda-opencv](noetic-cuda-opencv) | Ubuntu20.04 | zsh | noetic-cuda (Custom) | ROS1 Noetic + CUDA-11.6.1-devel + OpenCV-5.x | [README](noetic-cuda-opencv/README.md) |
+| [noetic-pcl10](noetic-pcl10) | Ubuntu20.04 | zsh | noetic (Custom) | ROS1 Noetic + PCL10 | [README](noetic-pcl10/README.md) |
+| [noetic-pcl14](noetic-pcl14) | Ubuntu20.04 | zsh | noetic (Custom) | ROS1 Noetic + PCL14 | [README](noetic-pcl14/README.md) |
+| [ubuntu20.04](ubuntu20.04) | Ubuntu20.04 | zsh | [ubuntu (Official)](https://hub.docker.com/_/ubuntu) |  |  |
+| [ubuntu22.04](ubuntu22.04) | Ubuntu22.04 | zsh | [ubuntu (Official)](https://hub.docker.com/_/ubuntu) |  |  |
 
-### workspace
+### WIP
+- [alpine3.17](alpine3.17)
+- [debian](debian)
+- [fedora](fedora)
+- [opensuse](opensuse)
+
+### Workspace
 - host:
   - default: `~/ws`
   - ROS1: `~/ros1_ws`
   - ROS2: `~/ros2_ws`
-- container: `~/ws`
+- container:
+  - all: `~/ws`
 
 ### Usage
-#### basic usage
+#### Basic usage
 ```bash
-cd <distro dir>
+cd <target image dir>
 docker compose up [option -d]  # create and start (-d: detached)
 docker compose start           # start
 docker compose stop            # stop
@@ -102,18 +92,18 @@ If you want to create different containers of the same environment, execute the 
 docker compose -p <project name> up [option -d]
 ```
 
-#### use Shell
+#### Use Shell
 ```bash
-cd <distro dir>
-docker compose exec ws <shell>  # bash, zsh
+cd <target image dir>
+docker compose exec ws <command> # e.g. zsh, bash, tmux
 ```
 - bash: All Distro Support
 - zsh: Only Ubuntu Support
 
-#### use VSCode
+#### Use VSCode
 prerequisite: extension `ms-vscode-remote.remote-containers`
 ```bash
-cd <distro dir>
+cd <target image dir>
 code .
 ```
 - Click on `Reopen in container` to run container
