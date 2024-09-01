@@ -94,7 +94,7 @@ docker compose stop            # stop
 docker compose down            # stop and remove
 ```
 
-If you want to create different containers for the same environment, do the following:
+If you want to create different containers of the same environment, execute the following:
 ```bash
 docker compose -p <project name> up [option -d]
 ```
