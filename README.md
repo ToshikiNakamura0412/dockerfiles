@@ -17,6 +17,7 @@
 
 ## Prerequisites
 - make
+- [docker](https://docs.docker.com/engine/install/ubuntu/#installation-methods)
 
 ## Installation
 ### Clone
@@ -114,4 +115,4 @@ code .
 - Use `docker compose up` to check if the build is done correctly.
 
 ## References
-- https://github.com/amslabtech/amsl_ros_docker_ws
+- https://docs.ros.org/en/rolling/How-To-Guides/Setup-ROS-2-with-VSCode-and-Docker-Container.html
