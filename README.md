@@ -11,6 +11,9 @@
 - x86_64
 - arm64
 
+## Prerequisites
+- make
+
 ## Installation
 ### Clone
 Please clone to your home directory
