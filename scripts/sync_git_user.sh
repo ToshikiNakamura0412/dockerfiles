@@ -12,6 +12,29 @@ SEARCH_STRINGS_SSH=(
 )
 TARGET_STRING_SSH="\      - type: bind\n        source: ~/.ssh\n        target: /home/user/.ssh"
 
+function check_git_user() {
+    if [[ ! -z ${GIT_USER} && ! -z ${GIT_EMAIL} ]]; then
+        return
+    fi
+    echo ""
+    echo -e "\e[31mPlease set your git user name and email\e[m"
+    echo ""
+    echo -e "\e[33m\tgit config --global user.name \"Your Name\"\e[m"
+    echo -e "\e[33m\tgit config --global user.email \"Your Email\"\e[m"
+    exit 1
+}
+
+function check_ssh_key() {
+    if [[ -f ~/.ssh/id_rsa ]]; then
+        return
+    fi
+    echo ""
+    echo -e "\e[31mPlease create your ssh key\e[m"
+    echo ""
+    echo -e "\e[33m\tssh-keygen"
+    exit 1
+}
+
 function show_usage() {
     echo ""
     echo "Usage:"
@@ -62,6 +85,8 @@ function disable_git_sync() {
 }
 
 function main() {
+    check_git_user
+    check_ssh_key
     if [[ $1 == "-h" || $1 == "--help" ]]; then
         show_usage
     elif [[ $1 == "disable" ]]; then
