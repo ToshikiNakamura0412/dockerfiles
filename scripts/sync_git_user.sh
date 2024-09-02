@@ -79,13 +79,16 @@ function delete_git_config() {
     done
 }
 
-function delete_ssh_config() {
+function delete_config() {
     local file_name=$1
+    shift 1
+    local target_strings=("$@")
+
     for distro in ${DISTROS[@]}; do
         if ! is_invalid_distro ${distro}; then
             local target_file=${SCRIPT_DIR}/../${distro}/${file_name}
-            local target_line=$(grep -n "${TARGET_STRING_SSH[-1]}" ${target_file} | cut -d ":" -f 1 | head -n 1)
-            sed -i "$((target_line - ${#TARGET_STRING_SSH[@]} + 1)),$((target_line))d" ${target_file}
+            local target_line=$(grep -n "${target_strings[-1]}" ${target_file} | cut -d ":" -f 1 | head -n 1)
+            sed -i "$((target_line - ${#target_strings[@]} + 1)),$((target_line))d" ${target_file}
         fi
     done
 }
@@ -129,10 +132,10 @@ function add_config() {
 
 function enable_git_sync() {
     # git config
-    delete_git_config "docker-compose.yml"
+    delete_config "docker-compose.yml" "${TARGET_STRINGS_GIT[@]}"
     add_config "docker-compose.yml" "environment:" "${TARGET_STRINGS_GIT[@]}"
     # ssh config
-    delete_ssh_config "docker-compose.yml"
+    delete_config "docker-compose.yml" "${TARGET_STRING_SSH[@]}"
     add_config "docker-compose.yml" "volumes:" "${TARGET_STRING_SSH[@]}"
 
     echo ""
@@ -142,8 +145,8 @@ function enable_git_sync() {
 }
 
 function disable_git_sync() {
-    delete_git_config "docker-compose.yml"
-    delete_ssh_config "docker-compose.yml"
+    delete_config "docker-compose.yml" "${TARGET_STRINGS_GIT[@]}"
+    delete_config "docker-compose.yml" "${TARGET_STRING_SSH[@]}"
 
     echo ""
     echo "Disabled git sync"
