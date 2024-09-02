@@ -26,10 +26,9 @@ function delete_lines_all_distros() {
     for distro in ${DISTROS[@]}; do
         if ! is_invalid_distro ${distro}; then
             local target_file=${SCRIPT_DIR}/../${distro}/${file_name}
-            if grep -q "${search_string}" ${target_file}; then
-                while grep -q "${search_string}" ${target_file}; do
+            if grep -Fq "${search_string}" ${target_file}; then
+                while grep -Fq "${search_string}" ${target_file}; do
                     target_line=$(grep -Fn "${search_string}" ${target_file} | cut -d ":" -f 1 | head -n 1)
-                    echo "sed -i \"$((target_line - ${#target_strings[@]} + 1)),$((target_line))d\" ${target_file}"
                     sed -i "$((target_line - ${#target_strings[@]} + 1)),$((target_line))d" ${target_file}
                 done
             else
