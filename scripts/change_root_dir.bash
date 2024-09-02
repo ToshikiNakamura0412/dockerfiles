@@ -9,7 +9,7 @@ function show_usage() {
 
 function change_root_dir() {
     local old_root_dir="~"
-    local new_root_dir=$1
+    local new_root_dir=$(if [[ $1 == $HOME ]]; then echo "~"; else echo $1; fi)
     local log_file=${SCRIPT_DIR}/../root_dir.log
     if [[ -e ${log_file} ]]; then
         old_root_dir=$(cat ${log_file})
