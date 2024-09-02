@@ -31,18 +31,23 @@ git clone https://github.com/ToshikiNakamura0412/dockerfiles.git ~/dockerfiles
 create directories (e.g. [workspace](#workspace))
 ```bash
 cd ~/dockerfiles
-make setup
+make setup # create directories
 ```
 #### Custom
 ```bash
 cd ~/dockerfiles
 make [target] [arg=<arg>]
 ...
-make setup
+make setup # create directories
 ```
 - show help of make: `make help`
 - show help of target: `make [target] arg=-h`
   - target: `change_root_dir`, `disable_gpu`, `select_shell`, `setup`, `sync_git_user`
+
+**If you already start the container, you need to execute the following command to reflect the changes.**
+```bash
+docker compose up [option -d]
+```
 
 ## Clean
 - remove directories (e.g. [workspace](#workspace)) and revert to the default state
@@ -64,11 +69,7 @@ make clean
 | [ubuntu20.04](ubuntu20.04) | Ubuntu20.04 | zsh | [ubuntu (Official)](https://hub.docker.com/_/ubuntu) |  |  |
 | [ubuntu22.04](ubuntu22.04) | Ubuntu22.04 | zsh | [ubuntu (Official)](https://hub.docker.com/_/ubuntu) |  |  |
 
-### WIP
-- [alpine3.17](alpine3.17)
-- [debian](debian)
-- [fedora](fedora)
-- [opensuse](opensuse)
+WIP : [alpine3.17](alpine3.17), [debian](debian), [fedora](fedora), [opensuse](opensuse)
 
 ### Workspace
 - host:
