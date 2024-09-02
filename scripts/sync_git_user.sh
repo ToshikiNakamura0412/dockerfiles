@@ -72,7 +72,9 @@ function delete_config() {
         if ! is_invalid_distro ${distro}; then
             local target_file=${SCRIPT_DIR}/../${distro}/${file_name}
             local target_line=$(grep -n "${target_strings[-1]}" ${target_file} | cut -d ":" -f 1 | head -n 1)
-            sed -i "$((target_line - ${#target_strings[@]} + 1)),$((target_line))d" ${target_file}
+            if [[ -n ${target_line} ]]; then
+                sed -i "$((target_line - ${#target_strings[@]} + 1)),$((target_line))d" ${target_file}
+            fi
         fi
     done
 }
@@ -85,6 +87,10 @@ function insert_lines() {
 
     for ((i=${#target_strings[@]}-1; i>=0; i--)); do
         local target_line=$(grep -n "${search_string}" ${target_file} | cut -d ":" -f 1 | head -n 1)
+        if [[ -z ${target_line} ]]; then
+            echo -e "\e[31mError: '${search_string}' not found in ${target_file}. Failed to insert target_strings.\e[m"
+            exit 1
+        fi
         sed -i "${target_line}a ${target_strings[i]}" ${target_file}
     done
 }
