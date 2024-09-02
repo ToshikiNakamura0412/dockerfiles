@@ -21,21 +21,21 @@ help:
 	@echo "For normal setup, only “\e[32mmake setup\e[m“ is required."
 
 change_root_dir:
-	@$(scripts_dir)/change_root_dir.sh $(arg)
+	@$(scripts_dir)/change_root_dir.bash $(arg)
 
 disable_gpu:
-	@$(scripts_dir)/disable_gpu.sh $(arg)
+	@$(scripts_dir)/disable_gpu.bash $(arg)
 
 select_shell:
-	@$(scripts_dir)/select_shell.sh $(arg)
+	@$(scripts_dir)/select_shell.bash $(arg)
 
 setup:
-	@$(scripts_dir)/setup.sh $(arg)
+	@$(scripts_dir)/setup.bash $(arg)
 
 sync_git_user:
-	@$(scripts_dir)/sync_git_user.sh $(arg)
+	@$(scripts_dir)/sync_git_user.bash $(arg)
 
 clean:
-	@$(scripts_dir)/setup.sh clean
+	@$(scripts_dir)/setup.bash clean
 	@git checkout -- .
 	@if [ -f root_dir.log ]; then rm root_dir.log; fi
