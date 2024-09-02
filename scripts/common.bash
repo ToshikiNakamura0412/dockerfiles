@@ -21,7 +21,6 @@ function delete_lines_all_distros() {
     shift 1
     local target_strings=("$@")
     local search_string=$(echo ${target_strings[-1]} | sed 's/\\//g' | sed 's/^ *//g')
-    echo "search_string: ${search_string}"
 
     for distro in ${DISTROS[@]}; do
         if ! is_invalid_distro ${distro}; then
