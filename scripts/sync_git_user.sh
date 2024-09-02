@@ -21,7 +21,6 @@ SEARCH_STRINGS_SSH=(
     "/home/user/.ssh"
     "volumes:"
 )
-# TARGET_STRING_SSH="\      - type: bind\n        source: ~/.ssh\n        target: /home/user/.ssh"
 TARGET_STRING_SSH=(
     "\      - type: bind"
     "\        source: ~/.ssh"
@@ -68,19 +67,13 @@ function is_invalid_distro() {
     return 1
 }
 
-function delete_line() {
-    local target_file=$1
-    local search_string=$2
-    sed -i "/${search_string}/d" ${target_file}
-}
-
 function delete_git_config() {
     local file_name=$1
     for distro in ${DISTROS[@]}; do
         if ! is_invalid_distro ${distro}; then
             local target_file=${SCRIPT_DIR}/../${distro}/${file_name}
             for search_string in ${SEARCH_STRINGS_GIT[@]}; do
-                delete_line ${target_file} ${search_string}
+                sed -i "/${search_string}/d" ${target_file}
             done
         fi
     done
@@ -91,8 +84,8 @@ function delete_ssh_config() {
     for distro in ${DISTROS[@]}; do
         if ! is_invalid_distro ${distro}; then
             local target_file=${SCRIPT_DIR}/../${distro}/${file_name}
-            local target_line=$(grep -n "${SEARCH_STRINGS_SSH[0]}" ${target_file} | cut -d ":" -f 1 | head -n 1)
-            sed -i "$((target_line - 2)),$((target_line))d" ${target_file}
+            local target_line=$(grep -n "${TARGET_STRING_SSH[-1]}" ${target_file} | cut -d ":" -f 1 | head -n 1)
+            sed -i "$((target_line - ${#TARGET_STRING_SSH[@]} + 1)),$((target_line))d" ${target_file}
         fi
     done
 }
