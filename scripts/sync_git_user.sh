@@ -118,13 +118,13 @@ function add_config() {
 
 function enable_git_sync() {
     # delete config
-    delete_config TARGET_FILE_NAME_GIT "${TARGET_STRINGS_GIT[@]}"
-    delete_config TARGET_FILE_NAME_SSH "${TARGET_STRINGS_SSH[@]}"
+    delete_config ${TARGET_FILE_NAME_GIT} "${TARGET_STRINGS_GIT[@]}"
+    delete_config ${TARGET_FILE_NAME_SSH} "${TARGET_STRINGS_SSH[@]}"
 
     # add config
     ERROR_COUNT=0
-    add_config TARGET_FILE_NAME_GIT ${INSERT_POINT_STRING_GIT} "${TARGET_STRINGS_GIT[@]}"
-    add_config TARGET_FILE_NAME_SSH ${INSERT_POINT_STRING_SSH} "${TARGET_STRINGS_SSH[@]}"
+    add_config ${TARGET_FILE_NAME_GIT} ${INSERT_POINT_STRING_GIT} "${TARGET_STRINGS_GIT[@]}"
+    add_config ${TARGET_FILE_NAME_SSH} ${INSERT_POINT_STRING_SSH} "${TARGET_STRINGS_SSH[@]}"
 
     if [[ ${ERROR_COUNT} -ne 0 ]]; then
         echo -e "\e[31mFailed to enable git sync\e[m"
@@ -138,8 +138,8 @@ function enable_git_sync() {
 }
 
 function disable_git_sync() {
-    delete_config TARGET_FILE_NAME_GIT "${TARGET_STRINGS_GIT[@]}"
-    delete_config TARGET_FILE_NAME_SSH "${TARGET_STRINGS_SSH[@]}"
+    delete_config ${TARGET_FILE_NAME_GIT} "${TARGET_STRINGS_GIT[@]}"
+    delete_config ${TARGET_FILE_NAME_SSH} "${TARGET_STRINGS_SSH[@]}"
 
     if [[ ${ERROR_COUNT} -ne 0 ]]; then
         echo -e "\e[31mFailed to disable git sync or git sync is already disabled\e[m"
