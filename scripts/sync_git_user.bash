@@ -54,7 +54,6 @@ function show_usage() {
     echo "    Disable git sync: $0 disable"
 }
 
-
 function enable_git_sync() {
     # delete config
     delete_lines_all_distros ${TARGET_FILE_NAME_GIT} "${TARGET_STRINGS_GIT[@]}"
