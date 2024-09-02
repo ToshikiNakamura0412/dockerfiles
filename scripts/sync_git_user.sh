@@ -7,6 +7,7 @@ INVALID_DISTROS=("scripts")
 ERROR_COUNT=0
 
 # git
+TARGET_FILE_NAME_GIT="docker-compose.yml"
 INSERT_POINT_STRING_GIT="environment:"
 # You should set unique element in the target file at the end of the array to avoid deleting other lines.
 # TARGET_STRINGS_GIT is inserted once in the line following INSERT_POINT_STRING_GIT.
@@ -16,6 +17,7 @@ TARGET_STRINGS_GIT=(
 )
 
 # ssh
+TARGET_FILE_NAME_SSH="docker-compose.yml"
 INSERT_POINT_STRING_SSH="volumes:"
 # You should set unique element in the target file at the end of the array to avoid deleting other lines.
 # TARGET_STRINGS_SSH is inserted once in the line following INSERT_POINT_STRING_SSH.
@@ -116,13 +118,13 @@ function add_config() {
 
 function enable_git_sync() {
     # delete config
-    delete_config "docker-compose.yml" "${TARGET_STRINGS_GIT[@]}"
-    delete_config "docker-compose.yml" "${TARGET_STRINGS_SSH[@]}"
+    delete_config TARGET_FILE_NAME_GIT "${TARGET_STRINGS_GIT[@]}"
+    delete_config TARGET_FILE_NAME_SSH "${TARGET_STRINGS_SSH[@]}"
 
     # add config
     ERROR_COUNT=0
-    add_config "docker-compose.yml" ${INSERT_POINT_STRING_GIT} "${TARGET_STRINGS_GIT[@]}"
-    add_config "docker-compose.yml" ${INSERT_POINT_STRING_SSH} "${TARGET_STRINGS_SSH[@]}"
+    add_config TARGET_FILE_NAME_GIT ${INSERT_POINT_STRING_GIT} "${TARGET_STRINGS_GIT[@]}"
+    add_config TARGET_FILE_NAME_SSH ${INSERT_POINT_STRING_SSH} "${TARGET_STRINGS_SSH[@]}"
 
     if [[ ${ERROR_COUNT} -ne 0 ]]; then
         echo -e "\e[31mFailed to enable git sync\e[m"
@@ -136,8 +138,8 @@ function enable_git_sync() {
 }
 
 function disable_git_sync() {
-    delete_config "docker-compose.yml" "${TARGET_STRINGS_GIT[@]}"
-    delete_config "docker-compose.yml" "${TARGET_STRINGS_SSH[@]}"
+    delete_config TARGET_FILE_NAME_GIT "${TARGET_STRINGS_GIT[@]}"
+    delete_config TARGET_FILE_NAME_SSH "${TARGET_STRINGS_SSH[@]}"
 
     if [[ ${ERROR_COUNT} -ne 0 ]]; then
         echo -e "\e[31mFailed to disable git sync or git sync is already disabled\e[m"
