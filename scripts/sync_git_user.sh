@@ -86,6 +86,17 @@ function delete_git_config() {
     done
 }
 
+function delete_ssh_config() {
+    local file_name=$1
+    for distro in ${DISTROS[@]}; do
+        if ! is_invalid_distro ${distro}; then
+            local target_file=${SCRIPT_DIR}/../${distro}/${file_name}
+            local target_line=$(grep -n "${SEARCH_STRINGS_SSH[0]}" ${target_file} | cut -d ":" -f 1 | head -n 1)
+            sed -i "$((target_line - 2)),$((target_line))d" ${target_file}
+        fi
+    done
+}
+
 function insert_line_once() {
     local target_file=$1
     local search_string=$2
@@ -124,26 +135,12 @@ function add_config() {
 }
 
 function enable_git_sync() {
+    # git config
     delete_git_config "docker-compose.yml"
     add_config "docker-compose.yml" "environment:" "${TARGET_STRINGS_GIT[@]}"
+    # ssh config
+    delete_ssh_config "docker-compose.yml"
     add_config "docker-compose.yml" "volumes:" "${TARGET_STRING_SSH[@]}"
-
-    # for distro in ${DISTROS[@]}; do
-    #     if [[ ${distro} != "scripts" ]]; then
-    #         local target_file=${SCRIPT_DIR}/../${distro}/Dockerfile
-    #         local count=$(grep -c ${SEARCH_STRING_GIT} ${target_file})
-    #         if [[ ${count} -eq 0 ]]; then
-    #             echo ${TARGET_STRING_GIT} | sed 's/\\//g' >> ${target_file}
-    #         fi
-
-    #         target_file=${SCRIPT_DIR}/../${distro}/docker-compose.yml
-    #         count=$(grep -c ${SEARCH_STRINGS_SSH[0]} ${target_file})
-    #         if [[ ${count} -eq 0 ]]; then
-    #             local target_line=$(grep -n "${SEARCH_STRINGS_SSH[1]}" ${target_file} | cut -d ":" -f 1 | head -n 1)
-    #             sed -i "${target_line}a ${TARGET_STRING_SSH}" ${target_file}
-    #         fi
-    #     fi
-    # done
 
     echo ""
     echo "Enabled git sync"
@@ -153,17 +150,7 @@ function enable_git_sync() {
 
 function disable_git_sync() {
     delete_git_config "docker-compose.yml"
-
-    for distro in ${DISTROS[@]}; do
-        if [[ ${distro} != "scripts" ]]; then
-            local target_file=${SCRIPT_DIR}/../${distro}/docker-compose.yml
-            local count=$(grep -c ${SEARCH_STRINGS_SSH[0]} ${target_file})
-            if [[ ${count} -ne 0 ]]; then
-                local target_line=$(grep -n "${SEARCH_STRINGS_SSH[0]}" ${target_file} | cut -d ":" -f 1 | head -n 1)
-                sed -i "$((target_line - 2)),$((target_line))d" ${target_file}
-            fi
-        fi
-    done
+    delete_ssh_config "docker-compose.yml"
 
     echo ""
     echo "Disabled git sync"
