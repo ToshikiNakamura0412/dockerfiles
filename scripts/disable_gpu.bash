@@ -1,7 +1,21 @@
 #!/bin/bash
 
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
-DISTROS=$(ls -d ${SCRIPT_DIR}/../*/ | sed 's|'${SCRIPT_DIR}\/..\/'||g' | sed 's/\///g')
+source ${SCRIPT_DIR}/common.bash
+
+TARGET_FILE_NAME="docker-compose.yml"
+INSERT_POINT_STRING="command:"
+# You should set unique element in the target file at the end of the array to avoid deleting other lines.
+# TARGET_STRINGS is inserted once in the line following INSERT_POINT_STRING.
+TARGET_STRINGS=(
+    "\    deploy:"
+    "\      resources:"
+    "\        reservations:"
+    "\          devices:"
+    "\            - driver: nvidia"
+    "\              count: 1"
+    "\              capabilities: [ gpu ]"
+)
 
 function show_usage() {
     echo ""
@@ -11,41 +25,30 @@ function show_usage() {
 }
 
 function disable_gpu() {
-    for distro in ${DISTROS[@]}; do
-        if [[ ${distro} != "scripts" ]]; then
-            sed -i '/deploy/,+6d' ${SCRIPT_DIR}/../${distro}/docker-compose.yml
-        fi
-    done
+    delete_lines_all_distros ${TARGET_FILE_NAME} "${TARGET_STRINGS[@]}"
 
-    echo ""
-    echo "Disabled GPU"
-    echo ""
-    echo -e "\e[33m(If you want to enable GPU, please run '$0 enable_gpu')\e[m"
+    if [[ ${ERROR_COUNT_OF_DELETE_LINES} -eq 0 ]]; then
+        echo ""
+        echo "Disabled GPU"
+    else
+        echo ""
+        echo -e "\e[31mFailed to disable GPU or GPU is already disabled\e[m"
+        exit 1
+    fi
 }
 
 function enable_gpu() {
-    local target_string="\\
-\    deploy:\\
-      resources:\\
-        reservations:\\
-          devices:\\
-            - driver: nvidia\\
-              count: 1\\
-              capabilities: [ gpu ]"
+    delete_lines_all_distros ${TARGET_FILE_NAME} "${TARGET_STRINGS[@]}"
+    insert_lines_all_distros ${TARGET_FILE_NAME} ${INSERT_POINT_STRING} "${TARGET_STRINGS[@]}"
 
-    for distro in ${DISTROS[@]}; do
-        if [[ ${distro} != "scripts" ]] && [[ ${distro} != "alpine3.17" ]]; then
-            local target_file=${SCRIPT_DIR}/../${distro}/docker-compose.yml
-            local count=$(grep -c "deploy" ${target_file})
-            if [[ ${count} -eq 0 ]]; then
-                local target_line=$(grep -n "command" ${target_file} | cut -d ":" -f 1 | head -n 1)
-                sed -i "${target_line}a ${target_string}" ${target_file}
-            fi
-        fi
-    done
-
-    echo ""
-    echo "Enabled GPU"
+    if [[ ${ERROR_COUNT_OF_INSERT_LINES} -eq 0 ]]; then
+        echo ""
+        echo "Enabled GPU"
+    else
+        echo ""
+        echo -e "\e[31mFailed to enable GPU\e[m"
+        exit 1
+    fi
 }
 
 function main() {

@@ -1,10 +1,7 @@
 #!/bin/bash
 
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
-DISTROS=$(ls -d ${SCRIPT_DIR}/../*/ | sed 's|'${SCRIPT_DIR}\/..\/'||g' | sed 's/\///g')
-INVALID_DISTROS=("scripts")
-
-ERROR_COUNT=0
+source ${SCRIPT_DIR}/common.bash
 
 # git
 TARGET_FILE_NAME_GIT="docker-compose.yml"
@@ -57,96 +54,38 @@ function show_usage() {
     echo "    Disable git sync: $0 disable"
 }
 
-function is_invalid_distro() {
-    local distro=$1
-    for invalid_distro in ${INVALID_DISTROS[@]}; do
-        if [[ ${distro} == ${invalid_distro} ]]; then
-            return 0
-        fi
-    done
-    return 1
-}
-
-function delete_config() {
-    local file_name=$1
-    shift 1
-    local target_strings=("$@")
-
-    for distro in ${DISTROS[@]}; do
-        if ! is_invalid_distro ${distro}; then
-            local target_file=${SCRIPT_DIR}/../${distro}/${file_name}
-            local target_line=$(grep -n "${target_strings[-1]}" ${target_file} | cut -d ":" -f 1 | head -n 1)
-            if [[ -n ${target_line} ]]; then
-                sed -i "$((target_line - ${#target_strings[@]} + 1)),$((target_line))d" ${target_file}
-            else
-                ERROR_COUNT=$((ERROR_COUNT + 1))
-            fi
-        fi
-    done
-}
-
-function insert_lines() {
-    local target_file=$1
-    local search_string=$2
-    shift 2
-    local target_strings=("$@")
-
-    for ((i=${#target_strings[@]}-1; i>=0; i--)); do
-        local target_line=$(grep -n "${search_string}" ${target_file} | cut -d ":" -f 1 | head -n 1)
-        if [[ -n ${target_line} ]]; then
-            sed -i "${target_line}a ${target_strings[i]}" ${target_file}
-        else
-            echo -e "\e[33mError: '${search_string}' not found in ${target_file}. Failed to insert target strings.\e[m"
-            ERROR_COUNT=$((ERROR_COUNT + 1))
-        fi
-    done
-}
-
-function add_config() {
-    local file_name=$1
-    local search_string=$2
-    shift 2
-    local target_strings=("$@")
-
-    for distro in ${DISTROS[@]}; do
-        if ! is_invalid_distro ${distro}; then
-            local target_file=${SCRIPT_DIR}/../${distro}/${file_name}
-            insert_lines ${target_file} ${search_string} "${target_strings[@]}"
-        fi
-    done
-}
 
 function enable_git_sync() {
     # delete config
-    delete_config ${TARGET_FILE_NAME_GIT} "${TARGET_STRINGS_GIT[@]}"
-    delete_config ${TARGET_FILE_NAME_SSH} "${TARGET_STRINGS_SSH[@]}"
+    delete_lines_all_distros ${TARGET_FILE_NAME_GIT} "${TARGET_STRINGS_GIT[@]}"
+    delete_lines_all_distros ${TARGET_FILE_NAME_SSH} "${TARGET_STRINGS_SSH[@]}"
 
     # add config
-    ERROR_COUNT=0
-    add_config ${TARGET_FILE_NAME_GIT} ${INSERT_POINT_STRING_GIT} "${TARGET_STRINGS_GIT[@]}"
-    add_config ${TARGET_FILE_NAME_SSH} ${INSERT_POINT_STRING_SSH} "${TARGET_STRINGS_SSH[@]}"
+    insert_lines_all_distros ${TARGET_FILE_NAME_GIT} ${INSERT_POINT_STRING_GIT} "${TARGET_STRINGS_GIT[@]}"
+    insert_lines_all_distros ${TARGET_FILE_NAME_SSH} ${INSERT_POINT_STRING_SSH} "${TARGET_STRINGS_SSH[@]}"
 
-    if [[ ${ERROR_COUNT} -ne 0 ]]; then
-        echo -e "\e[31mFailed to enable git sync\e[m"
-        exit 1
-    else
+    if [[ ${ERROR_COUNT_OF_INSERT_LINES} -eq 0 ]]; then
         echo ""
         echo "Enabled git sync"
         echo ""
         echo -e "\e[33m(If you want to disable git sync, please run '$0 disable')\e[m"
+    else
+        echo -e "\e[31mFailed to enable git sync\e[m"
+        exit 1
     fi
 }
 
 function disable_git_sync() {
-    delete_config ${TARGET_FILE_NAME_GIT} "${TARGET_STRINGS_GIT[@]}"
-    delete_config ${TARGET_FILE_NAME_SSH} "${TARGET_STRINGS_SSH[@]}"
+    delete_lines_all_distros ${TARGET_FILE_NAME_GIT} "${TARGET_STRINGS_GIT[@]}"
+    delete_lines_all_distros ${TARGET_FILE_NAME_SSH} "${TARGET_STRINGS_SSH[@]}"
 
-    if [[ ${ERROR_COUNT} -ne 0 ]]; then
-        echo -e "\e[31mFailed to disable git sync or git sync is already disabled\e[m"
-        exit 1
-    else
+    if [[ ${ERROR_COUNT_OF_DELETE_LINES} -eq 0 ]]; then
         echo ""
         echo "Disabled git sync"
+    else
+        echo ""
+        echo -e "\e[31mFailed to disable git sync or git sync is already disabled\e[m"
+        exit 1
     fi
 }
 
