@@ -8,6 +8,7 @@ DIR_LIST=(
     ~/pcd
     ~/dataset
 )
+COUNT_OF_CREATED_DIRS=0
 
 function show_usage() {
     echo ""
@@ -18,11 +19,17 @@ function make_dir() {
     for dir in ${DIR_LIST[@]}; do
         if [[ ! -d ${dir} ]]; then
             mkdir -pv ${dir}
+            COUNT_OF_CREATED_DIRS=$((COUNT_OF_CREATED_DIRS + 1))
         fi
     done
 
-    echo ""
-    echo "Directories created"
+    if [[ ${COUNT_OF_CREATED_DIRS} -eq 0 ]]; then
+        echo ""
+        echo "All directories already exist"
+    else
+        echo ""
+        echo "Directories created"
+    fi
 }
 
 function remove_dir() {
