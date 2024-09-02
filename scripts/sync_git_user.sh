@@ -4,6 +4,8 @@ SCRIPT_DIR=$(cd $(dirname $0); pwd)
 DISTROS=$(ls -d ${SCRIPT_DIR}/../*/ | sed 's|'${SCRIPT_DIR}\/..\/'||g' | sed 's/\///g')
 INVALID_DISTROS=("scripts")
 
+ERROR_COUNT=0
+
 # git
 INSERT_POINT_STRING_GIT="environment:"
 # You should set unique element in the target file at the end of the array to avoid deleting other lines.
@@ -74,6 +76,8 @@ function delete_config() {
             local target_line=$(grep -n "${target_strings[-1]}" ${target_file} | cut -d ":" -f 1 | head -n 1)
             if [[ -n ${target_line} ]]; then
                 sed -i "$((target_line - ${#target_strings[@]} + 1)),$((target_line))d" ${target_file}
+            else
+                ERROR_COUNT=$((ERROR_COUNT + 1))
             fi
         fi
     done
@@ -87,11 +91,12 @@ function insert_lines() {
 
     for ((i=${#target_strings[@]}-1; i>=0; i--)); do
         local target_line=$(grep -n "${search_string}" ${target_file} | cut -d ":" -f 1 | head -n 1)
-        if [[ -z ${target_line} ]]; then
-            echo -e "\e[31mError: '${search_string}' not found in ${target_file}. Failed to insert target_strings.\e[m"
-            exit 1
+        if [[ -n ${target_line} ]]; then
+            sed -i "${target_line}a ${target_strings[i]}" ${target_file}
+        else
+            echo -e "\e[33mError: '${search_string}' not found in ${target_file}. Failed to insert target strings.\e[m"
+            ERROR_COUNT=$((ERROR_COUNT + 1))
         fi
-        sed -i "${target_line}a ${target_strings[i]}" ${target_file}
     done
 }
 
@@ -110,25 +115,37 @@ function add_config() {
 }
 
 function enable_git_sync() {
-    # git config
+    # delete config
     delete_config "docker-compose.yml" "${TARGET_STRINGS_GIT[@]}"
-    add_config "docker-compose.yml" ${INSERT_POINT_STRING_GIT} "${TARGET_STRINGS_GIT[@]}"
-    # ssh config
     delete_config "docker-compose.yml" "${TARGET_STRINGS_SSH[@]}"
+
+    # add config
+    ERROR_COUNT=0
+    add_config "docker-compose.yml" ${INSERT_POINT_STRING_GIT} "${TARGET_STRINGS_GIT[@]}"
     add_config "docker-compose.yml" ${INSERT_POINT_STRING_SSH} "${TARGET_STRINGS_SSH[@]}"
 
-    echo ""
-    echo "Enabled git sync"
-    echo ""
-    echo -e "\e[33m(If you want to disable git sync, please run '$0 disable')\e[m"
+    if [[ ${ERROR_COUNT} -ne 0 ]]; then
+        echo -e "\e[31mFailed to enable git sync\e[m"
+        exit 1
+    else
+        echo ""
+        echo "Enabled git sync"
+        echo ""
+        echo -e "\e[33m(If you want to disable git sync, please run '$0 disable')\e[m"
+    fi
 }
 
 function disable_git_sync() {
     delete_config "docker-compose.yml" "${TARGET_STRINGS_GIT[@]}"
     delete_config "docker-compose.yml" "${TARGET_STRINGS_SSH[@]}"
 
-    echo ""
-    echo "Disabled git sync"
+    if [[ ${ERROR_COUNT} -ne 0 ]]; then
+        echo -e "\e[31mFailed to disable git sync or git sync is already disabled\e[m"
+        exit 1
+    else
+        echo ""
+        echo "Disabled git sync"
+    fi
 }
 
 function main() {
