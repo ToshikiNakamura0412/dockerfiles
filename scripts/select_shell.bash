@@ -1,7 +1,13 @@
 #!/bin/bash
 
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
-DISTROS_USED_ZSH=("humble" "noetic-cuda" "noetic" "ubuntu20.04" "ubuntu22.04")
+source ${SCRIPT_DIR}/common.bash
+
+TARGET_FILE_NAME="docker-compose.yml"
+INSERT_POINT_STRING="environment:"
+# You should set unique string in the target file at the end of the array to avoid deleting other lines.
+# TARGET_STRING is inserted once in the line following INSERT_POINT_STRING.
+TARGET_STRING="\      SHELL: /bin/bash"
 
 function show_usage() {
     echo ""
@@ -11,23 +17,14 @@ function show_usage() {
 
 function change_shell() {
     local shell_name=$1
-    local target_string1="ENV SHELL \/bin\/zsh"
-    local target_string2="CMD \[\"\/bin\/zsh\"\]"
 
     case ${shell_name} in
         bash)
-            find ${SCRIPT_DIR}/../ -type f -name "Dockerfile" -exec sed -i "/${target_string1}/d" {} \;
-            find ${SCRIPT_DIR}/../ -type f -name "Dockerfile" -exec sed -i "/${target_string2}/d" {} \;
+            # delete_lines_all_distros ${TARGET_FILE_NAME} "${TARGET_STRING}"
+            insert_lines_all_distros ${TARGET_FILE_NAME} ${INSERT_POINT_STRING} "${TARGET_STRING}"
             ;;
         zsh)
-            for distro_dir in ${DISTROS_USED_ZSH[@]}; do
-                for target_string in "${target_string1}" "${target_string2}"; do
-                    count=$(grep -c "${target_string}" ${SCRIPT_DIR}/../${distro_dir}/Dockerfile)
-                    if [[ ${count} -eq 0 ]]; then
-                        echo ${target_string} | sed 's/\\//g' >> ${SCRIPT_DIR}/../${distro_dir}/Dockerfile
-                    fi
-                done
-            done
+            delete_lines_all_distros ${TARGET_FILE_NAME} "${TARGET_STRING}"
             ;;
         *)
             echo -e "\e[31mError: Invalid shell name: ${shell_name}\e[m"
