@@ -16,8 +16,20 @@
 - Neovim (Not support completion: ROS2)
 
 ## Prerequisites
+### Common
 - make
 - [docker](https://docs.docker.com/engine/install/ubuntu/#installation-methods)
+
+### GPU
+#### Use
+- nvidia-container-runtime
+  - If you can't install this package, install [nvidia-container-toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#installing-with-apt)
+  - If you can't use GPU, execute the following command:
+    ```bash
+    sudo systemctl restart docker
+    ```
+#### Not use
+- Please disable GPU by [custom](#custom) setup
 
 ## Installation
 ### Clone
