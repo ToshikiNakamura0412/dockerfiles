@@ -5,16 +5,18 @@ DISTROS=$(ls -d ${SCRIPT_DIR}/../*/ | sed 's|'${SCRIPT_DIR}\/..\/'||g' | sed 's/
 INVALID_DISTROS=("scripts")
 
 # git
-GIT_USER=$(git config user.name)
-GIT_EMAIL=$(git config user.email)
 INSERT_POINT_STRING_GIT="environment:"
+# You should set unique element in the target file at the end of the array to avoid deleting other lines.
+# TARGET_STRINGS_GIT is inserted once in the line following INSERT_POINT_STRING_GIT.
 TARGET_STRINGS_GIT=(
-    "\      GIT_USER_NAME: ${GIT_USER}"
-    "\      GIT_USER_EMAIL: ${GIT_EMAIL}"
+    "\      GIT_USER_NAME: $(git config user.name)"
+    "\      GIT_USER_EMAIL: $(git config user.email)"
 )
 
 # ssh
 INSERT_POINT_STRING_SSH="volumes:"
+# You should set unique element in the target file at the end of the array to avoid deleting other lines.
+# TARGET_STRINGS_SSH is inserted once in the line following INSERT_POINT_STRING_SSH.
 TARGET_STRINGS_SSH=(
     "\      - type: bind"
     "\        source: ~/.ssh"
@@ -22,7 +24,7 @@ TARGET_STRINGS_SSH=(
 )
 
 function check_git_user() {
-    if [[ -n ${GIT_USER} && -n ${GIT_EMAIL} ]]; then
+    if [[ -n $(git config --global user.name) && -n $(git config --global user.email) ]]; then
         return
     fi
     echo ""
@@ -83,7 +85,7 @@ function insert_lines() {
 
     for ((i=${#target_strings[@]}-1; i>=0; i--)); do
         local target_line=$(grep -n "${search_string}" ${target_file} | cut -d ":" -f 1 | head -n 1)
-        sed -i "${target_line}a ${target_string}" ${target_file}
+        sed -i "${target_line}a ${target_strings[i]}" ${target_file}
     done
 }
 
