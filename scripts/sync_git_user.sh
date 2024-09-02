@@ -7,21 +7,15 @@ INVALID_DISTROS=("scripts")
 # git
 GIT_USER=$(git config user.name)
 GIT_EMAIL=$(git config user.email)
-SEARCH_STRINGS_GIT=(
-    "GIT_USER_NAME:"
-    "GIT_USER_EMAIL:"
-)
+INSERT_POINT_STRING_GIT="environment:"
 TARGET_STRINGS_GIT=(
-    "\      ${SEARCH_STRINGS_GIT[0]} ${GIT_USER}"
-    "\      ${SEARCH_STRINGS_GIT[1]} ${GIT_EMAIL}"
+    "\      GIT_USER_NAME: ${GIT_USER}"
+    "\      GIT_USER_EMAIL: ${GIT_EMAIL}"
 )
 
 # ssh
-SEARCH_STRINGS_SSH=(
-    "/home/user/.ssh"
-    "volumes:"
-)
-TARGET_STRING_SSH=(
+INSERT_POINT_STRING_SSH="volumes:"
+TARGET_STRINGS_SSH=(
     "\      - type: bind"
     "\        source: ~/.ssh"
     "\        target: /home/user/.ssh"
@@ -67,18 +61,6 @@ function is_invalid_distro() {
     return 1
 }
 
-function delete_git_config() {
-    local file_name=$1
-    for distro in ${DISTROS[@]}; do
-        if ! is_invalid_distro ${distro}; then
-            local target_file=${SCRIPT_DIR}/../${distro}/${file_name}
-            for search_string in ${SEARCH_STRINGS_GIT[@]}; do
-                sed -i "/${search_string}/d" ${target_file}
-            done
-        fi
-    done
-}
-
 function delete_config() {
     local file_name=$1
     shift 1
@@ -93,26 +75,15 @@ function delete_config() {
     done
 }
 
-function insert_line_once() {
-    local target_file=$1
-    local search_string=$2
-    local target_string=$3
-
-    # local target_string_for_grep=$(echo ${target_string} | sed 's/\\//g' | sed 's/^ *//' | cut -d " " -f 1)
-    # local count=$(grep -c ${target_string_for_grep} ${target_file})
-    # if [[ ${count} -eq 0 ]]; then
-    local target_line=$(grep -n "${search_string}" ${target_file} | cut -d ":" -f 1 | head -n 1)
-    sed -i "${target_line}a ${target_string}" ${target_file}
-}
-
-function insert_lines_once() {
+function insert_lines() {
     local target_file=$1
     local search_string=$2
     shift 2
     local target_strings=("$@")
 
     for ((i=${#target_strings[@]}-1; i>=0; i--)); do
-        insert_line_once ${target_file} ${search_string} "${target_strings[i]}"
+        local target_line=$(grep -n "${search_string}" ${target_file} | cut -d ":" -f 1 | head -n 1)
+        sed -i "${target_line}a ${target_string}" ${target_file}
     done
 }
 
@@ -125,7 +96,7 @@ function add_config() {
     for distro in ${DISTROS[@]}; do
         if ! is_invalid_distro ${distro}; then
             local target_file=${SCRIPT_DIR}/../${distro}/${file_name}
-            insert_lines_once ${target_file} ${search_string} "${target_strings[@]}"
+            insert_lines ${target_file} ${search_string} "${target_strings[@]}"
         fi
     done
 }
@@ -133,10 +104,10 @@ function add_config() {
 function enable_git_sync() {
     # git config
     delete_config "docker-compose.yml" "${TARGET_STRINGS_GIT[@]}"
-    add_config "docker-compose.yml" "environment:" "${TARGET_STRINGS_GIT[@]}"
+    add_config "docker-compose.yml" ${INSERT_POINT_STRING_GIT} "${TARGET_STRINGS_GIT[@]}"
     # ssh config
-    delete_config "docker-compose.yml" "${TARGET_STRING_SSH[@]}"
-    add_config "docker-compose.yml" "volumes:" "${TARGET_STRING_SSH[@]}"
+    delete_config "docker-compose.yml" "${TARGET_STRINGS_SSH[@]}"
+    add_config "docker-compose.yml" ${INSERT_POINT_STRING_SSH} "${TARGET_STRINGS_SSH[@]}"
 
     echo ""
     echo "Enabled git sync"
@@ -146,7 +117,7 @@ function enable_git_sync() {
 
 function disable_git_sync() {
     delete_config "docker-compose.yml" "${TARGET_STRINGS_GIT[@]}"
-    delete_config "docker-compose.yml" "${TARGET_STRING_SSH[@]}"
+    delete_config "docker-compose.yml" "${TARGET_STRINGS_SSH[@]}"
 
     echo ""
     echo "Disabled git sync"
