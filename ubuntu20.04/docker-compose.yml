@@ -30,7 +30,7 @@ services:
         source: apt-cache-apt-archives
         target: /var/cache/apt/archives
     working_dir: /home/user/ws
-    command: /bin/bash -c "if [[ -n $${GIT_USER_NAME} && -n $${GIT_USER_EMAIL} ]]; then git config --global user.name $${GIT_USER_NAME} && git config --global user.email $${GIT_USER_EMAIL}; fi && sudo apt update && bash"
+    command: /bin/bash -c "if [[ -n $${GIT_USER_NAME} && -n $${GIT_USER_EMAIL} ]]; then git config --global user.name \"$${GIT_USER_NAME}\" && git config --global user.email $${GIT_USER_EMAIL}; fi && sudo apt update && bash"
     deploy:
       resources:
         reservations:
