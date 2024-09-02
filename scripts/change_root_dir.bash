@@ -15,11 +15,21 @@ function change_root_dir() {
         old_root_dir=$(cat ${log_file})
     fi
 
-    echo ""
-    echo "Change root directory from ${old_root_dir} to ${new_root_dir}"
     find ${SCRIPT_DIR}/../ -type f -name "docker-compose.yml" -exec sed -i 's|\"'${old_root_dir}'|\"'${new_root_dir}'|g' {} \;
     find ${SCRIPT_DIR}/../ -type f -name "setup.sh" -exec sed -i 's|'${old_root_dir}'|'${new_root_dir}'|g' {} \;
     echo ${new_root_dir} > ${log_file}
+
+    if [[ ${old_root_dir} != ${new_root_dir} ]]; then
+        echo ""
+        echo "Change root directory from ${old_root_dir} to ${new_root_dir}"
+        if [[ ${new_root_dir} == "~" ]]; then
+            echo ""
+            echo -e "\e[32mRevert the root directory to the default\e[m"
+        else
+            echo ""
+            echo -e "\e[33m(If you want to revert the root directory, please run '$0 \~')\e[m"
+        fi
+    fi
 }
 
 function main() {
@@ -29,9 +39,6 @@ function main() {
     fi
 
     change_root_dir $1
-
-    echo ""
-    echo -e "\e[33m(If you want to revert the root directory, please run '$0 \~')\e[m"
 }
 
 main $@
