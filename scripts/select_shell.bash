@@ -20,7 +20,7 @@ function change_shell() {
 
     case ${shell_name} in
         bash)
-            # delete_lines_all_distros ${TARGET_FILE_NAME} "${TARGET_STRING}"
+            delete_lines_all_distros ${TARGET_FILE_NAME} "${TARGET_STRING}"
             insert_lines_all_distros ${TARGET_FILE_NAME} ${INSERT_POINT_STRING} "${TARGET_STRING}"
             ;;
         zsh)
