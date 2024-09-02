@@ -11,7 +11,6 @@ function change_root_dir() {
     local log_file=${SCRIPT_DIR}/../root_dir.log
     local old_root_dir=$(if [[ -e ${log_file} ]]; then cat ${log_file}; else echo "~"; fi)
     local new_root_dir=$(if [[ $1 == $HOME ]]; then echo "~"; else echo $1; fi)
-    echo ${old_root_dir} ${new_root_dir}
 
     find ${SCRIPT_DIR}/../ -type f -name "docker-compose.yml" -exec sed -i 's|\"'${old_root_dir}'|\"'${new_root_dir}'|g' {} \;
     find ${SCRIPT_DIR}/../ -type f -name "setup.bash" -exec sed -i 's|'${old_root_dir}'|'${new_root_dir}'|g' {} \;
