@@ -12,7 +12,6 @@ services:
       TERM: screen-256color
       LANG: C.UTF-8
       DISPLAY: $DISPLAY
-      NVIDIA_DRIVER_CAPABILITIES: all
     volumes:
       - type: bind
         source: /tmp/.X11-unix
@@ -34,13 +33,6 @@ services:
         target: /var/cache/apt/archives
     working_dir: /home/user/ws
     command: /bin/bash /home/user/start.bash
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [ gpu ]
 
 volumes:
   apt-cache-apt-lists:
