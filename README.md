@@ -73,6 +73,7 @@ make clean
 |   | Distro | Default Shell | Base Image | Contents | README |
 |---|---|---|---|---|---|
 | [alpine3.17](alpine3.17) | Alpine3.17 | zsh | [alpine (Official)](https://hub.docker.com/_/alpine) |  |  |
+| [debian12](debian12) | Debian12 | zsh | [debian (Official)](https://hub.docker.com/_/debian) |  |  |
 | [humbe](humble) | Ubuntu22.04 | zsh | [ros (Official)](https://hub.docker.com/_/ros) | ROS2 Humble |  |
 | [noetic](noetic) | Ubuntu20.04 | zsh | [ros (Official)](https://hub.docker.com/_/ros) | ROS1 Noetic |  |
 | [noetic-cuda](noetic-cuda) | Ubuntu20.04 | zsh | [cuda (Official)](https://hub.docker.com/r/nvidia/cuda) | ROS1 Noetic + CUDA-11.6.1-devel |  |
@@ -82,7 +83,7 @@ make clean
 | [ubuntu20.04](ubuntu20.04) | Ubuntu20.04 | zsh | [ubuntu (Official)](https://hub.docker.com/_/ubuntu) |  |  |
 | [ubuntu22.04](ubuntu22.04) | Ubuntu22.04 | zsh | [ubuntu (Official)](https://hub.docker.com/_/ubuntu) |  |  |
 
-WIP : [debian](debian), [fedora](fedora), [opensuse](opensuse)
+WIP : [fedora](fedora), [opensuse](opensuse)
 
 Alpine does not yet support nvidia-container-runtime
 
