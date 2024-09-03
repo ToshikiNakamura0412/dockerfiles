@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM debian:12
 ARG USERNAME=user
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
@@ -11,10 +11,12 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && apt-get install -y sudo \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
+RUN apt-get update && apt-get upgrade -y
 RUN apt-get update && apt-get install -y --no-install-recommends \
     bash-completion \
     tree \
     git \
+    openssh-client \
     cmake \
     build-essential \
     python3 \
@@ -23,11 +25,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN rm -rf /var/lib/apt/lists/*
 RUN rm /etc/apt/apt.conf.d/docker-clean
 
-ENV SHELL /bin/bash
-
 USER $USERNAME
+ENV SHELL /bin/bash
+CMD ["/bin/bash"]
+
+
+# Use dotfiles
 RUN git clone --recursive https://github.com/ToshikiNakamura0412/dotfiles.git ~/dotfiles
 RUN ~/dotfiles/install.sh
 RUN ~/dotfiles/scripts/change_tmux_conf.sh C-q snow
-
-CMD ["/bin/bash"]
+ENV SHELL /bin/zsh
+CMD ["/bin/zsh"]
