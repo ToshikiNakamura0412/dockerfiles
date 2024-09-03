@@ -20,15 +20,16 @@ function update_os(){
     else
         return
     fi
-    echo "Update ${distro} OS"
-    if [[ ${distro} == "Ubuntu" ]]; then
+    if [[ ${distro} == "ubuntu" ]] || [[ ${distro} == "debian" ]]; then
         sudo apt update
+    elif [[ ${distro} = "alpine" ]]; then
+        sudo apk update
     fi
 }
 
 function install_ros_dependencies(){
-    if [[ -z ${ROS_DISTRO} ]]; then
-        echo "ROS_DISTRO is not set"
+    if [[ ! -d /opt/ros ]] || [[ -z ${ROS_DISTRO} ]]; then
+        return
     fi
     sudo rosdep update
     sudo rosdep install -riy --from-paths /home/user/ws/src --rosdistro ${ROS_DISTRO}
@@ -38,6 +39,7 @@ function main(){
     set_git_user
     update_os
     install_ros_dependencies
+
     /bin/bash
 }
 
