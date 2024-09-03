@@ -25,6 +25,30 @@ function is_invalid_distro() {
 }
 
 # You should set unique element in the target file at the end of the array 'target_strings' to avoid deleting other lines.
+function delete_lines() {
+    local target_file=$1
+    if [[ -z ${target_file} ]]; then
+        echo -e "\e[31mError: target_file is empty\e[m"
+        return
+    fi
+    shift 1
+    local target_strings=("$@")
+    if [[ ${#target_strings[@]} -eq 0 ]]; then
+        echo -e "\e[31mError: target_strings is empty\e[m"
+        return
+    fi
+    local search_string=$(echo ${target_strings[-1]} | sed 's/\\//g' | sed 's/^ *//g')
+
+    if grep -Fq "${search_string}" ${target_file}; then
+        while grep -Fq "${search_string}" ${target_file}; do
+            target_line=$(grep -Fn "${search_string}" ${target_file} | cut -d ":" -f 1 | head -n 1)
+            sed -i "$((target_line - ${#target_strings[@]} + 1)),$((target_line))d" ${target_file}
+        done
+    else
+        ERROR_COUNT_OF_DELETE_LINES=$((ERROR_COUNT_OF_DELETE_LINES + 1))
+    fi
+}
+
 function delete_lines_all_distros() {
     local file_name=$1
     if [[ -z ${file_name} ]]; then
@@ -37,19 +61,11 @@ function delete_lines_all_distros() {
         echo -e "\e[31mError: target_strings is empty\e[m"
         return
     fi
-    local search_string=$(echo ${target_strings[-1]} | sed 's/\\//g' | sed 's/^ *//g')
 
     for distro in ${DISTROS[@]}; do
         if ! is_invalid_distro ${distro}; then
             local target_file=${SCRIPT_DIR}/../${distro}/${file_name}
-            if grep -Fq "${search_string}" ${target_file}; then
-                while grep -Fq "${search_string}" ${target_file}; do
-                    target_line=$(grep -Fn "${search_string}" ${target_file} | cut -d ":" -f 1 | head -n 1)
-                    sed -i "$((target_line - ${#target_strings[@]} + 1)),$((target_line))d" ${target_file}
-                done
-            else
-                ERROR_COUNT_OF_DELETE_LINES=$((ERROR_COUNT_OF_DELETE_LINES + 1))
-            fi
+            delete_lines ${target_file} "${target_strings[@]}"
         fi
     done
 }

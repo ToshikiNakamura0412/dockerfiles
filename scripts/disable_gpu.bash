@@ -3,6 +3,10 @@
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
 source ${SCRIPT_DIR}/common.bash
 
+DISTROS_NOT_SUPPORT_GPU=(
+    "alpine3.17"
+)
+
 TARGET_FILE_NAME="docker-compose.yml"
 INSERT_POINT_STRING="command:"
 # You should set unique element in the target file at the end of the array to avoid deleting other lines.
@@ -40,6 +44,12 @@ function disable_gpu() {
 function enable_gpu() {
     delete_lines_all_distros ${TARGET_FILE_NAME} "${TARGET_STRINGS[@]}"
     insert_lines_all_distros ${TARGET_FILE_NAME} ${INSERT_POINT_STRING} "${TARGET_STRINGS[@]}"
+
+    # Delete the lines that are not supported by the distro that does not support GPU.
+    for distro_not_support_gpu in ${DISTROS_NOT_SUPPORT_GPU[@]}; do
+        target_file=${SCRIPT_DIR}/../${distro_not_support_gpu}/${TARGET_FILE_NAME}
+        delete_lines ${target_file} "${TARGET_STRINGS[@]}"
+    done
 
     if [[ ${ERROR_COUNT_OF_INSERT_LINES} -eq 0 ]]; then
         echo ""
