@@ -11,9 +11,31 @@ services:
     environment:
       TERM: screen-256color
       LANG: C.UTF-8
+      DISPLAY: $DISPLAY
     volumes:
+      - type: bind
+        source: /tmp/.X11-unix
+        target: /tmp/.X11-unix
+      - type: bind
+        source: ~/dockerfiles/scripts/start.bash
+        target: /home/user/start.bash
+      - type: bind
+        source: ~/dockerfiles/scripts/install_vscode_extensions.sh
+        target: /home/user/install_vscode_extensions.sh
       - type: bind
         source: *WORKSPACE_SOURCE
         target: /home/user/ws
+      - type: volume
+        source: apt-cache-apt-lists
+        target: /var/lib/apt/lists
+      - type: volume
+        source: apt-cache-apt-archives
+        target: /var/cache/apt/archives
     working_dir: /home/user/ws
-    command: /bin/bash -c "bash"
+    command: /bin/bash /home/user/start.bash
+
+volumes:
+  apt-cache-apt-lists:
+    name: alpine3.17-apt-cache-apt-lists
+  apt-cache-apt-archives:
+    name: alpine3.17-apt-cache-apt-archives

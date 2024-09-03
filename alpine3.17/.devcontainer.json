@@ -1,0 +1,20 @@
+{
+    "name": "Alpine3.17 Dev Container",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "ws",
+    "workspaceFolder": "/home/user/ws",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.cpptools",
+                "ms-vscode.cpptools-extension-pack",
+                "ms-vscode.cpptools-themes",
+                "ms-python.python",
+                "ms-python.black-formatter",
+                "ms-python.isort",
+                "ms-python.flake8",
+                "ms-python.mypy-type-checker"
+            ]
+        }
+    }
+}

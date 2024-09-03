@@ -1,28 +1,36 @@
 FROM alpine:3.17
 ARG USERNAME=user
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
 
-RUN addgroup -S $USERNAME \
-    && adduser -S $USERNAME -G $USERNAME \
-    && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
-    && echo "$USERNAME:$USERNAME" | chpasswd
-RUN apk update && apk add bash sudo tzdata
+RUN addgroup -g $USER_GID -S $USERNAME \
+    && adduser -u $USER_UID  -S $USERNAME -G $USERNAME \
+    && apk update \
+    && apk add sudo bash \
+    && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/$USERNAME \
+    && echo "$USERNAME:$USERNAME" | chpasswd \
+    && chmod 0440 /etc/sudoers.d/$USERNAME
 RUN apk update && apk upgrade
-# RUN apk update && apk add \
-#     cmake \
-#     build-base \
-#     python3 \
-#     python3-dev \
-#     py3-pip \
-#     tree \
-#     git
+RUN apk update && apk add \
+    bash-completion \
+    tree \
+    git \
+    openssh-client \
+    cmake \
+    build-base \
+    python3 \
+    python3-dev \
+    py3-pip
 RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
-ENV SHELL /bin/bash
+RUN rm -rf /var/lib/apt/lists/*
 
 USER $USERNAME
+ENV SHELL /bin/bash
+CMD ["/bin/bash"]
+
 
 # Use dotfiles
+RUN touch ~/.bashrc
 RUN git clone --recursive https://github.com/ToshikiNakamura0412/dotfiles.git ~/dotfiles
 RUN ~/dotfiles/install.sh
 RUN ~/dotfiles/scripts/change_tmux_conf.sh C-q snow
-
-CMD ["/bin/bash"]
