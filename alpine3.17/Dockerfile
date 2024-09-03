@@ -4,7 +4,7 @@ ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
 RUN addgroup -g $USER_GID -S $USERNAME \
-    && adduser -u $USER_UID  -S $USERNAME -G $USERNAME \
+    && adduser -SD -u $USER_UID -G $USERNAME $USERNAME \
     && apk update \
     && apk add sudo bash \
     && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/$USERNAME \
