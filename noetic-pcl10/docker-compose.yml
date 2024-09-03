@@ -21,6 +21,9 @@ services:
         source: /tmp/.X11-unix
         target: /tmp/.X11-unix
       - type: bind
+        source: ~/dockerfiles/scripts/start.bash
+        target: /home/user/start.bash
+      - type: bind
         source: ~/dockerfiles/scripts/install_vscode_extensions.sh
         target: /home/user/install_vscode_extensions.sh
       - type: bind
@@ -42,7 +45,7 @@ services:
         source: apt-cache-apt-archives
         target: /var/cache/apt/archives
     working_dir: /home/user/ws
-    command: /bin/bash -c "if [[ -n $${GIT_USER_NAME} && -n $${GIT_USER_EMAIL} ]]; then git config --global user.name \"$${GIT_USER_NAME}\" && git config --global user.email $${GIT_USER_EMAIL}; fi && sudo apt update && sudo rosdep update && sudo rosdep install -riy --from-paths src --rosdistro noetic && bash"
+    command: /bin/bash /home/user/start.bash
     deploy:
       resources:
         reservations:
