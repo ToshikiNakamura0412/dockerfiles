@@ -26,6 +26,8 @@ function update_os(){
         sudo apk update
     elif [[ ${distro} == "fedora" ]]; then
         sudo dnf check-update
+    elif [[ ${distro} == "opensuse-leap" ]]; then
+        sudo zypper refresh
     fi
 }
 
