@@ -1,4 +1,4 @@
-FROM fedora:latest
+FROM fedora:40
 ARG USERNAME=user
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
@@ -12,22 +12,25 @@ RUN groupadd -g $USER_GID $USERNAME \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 RUN dnf check-update || true && dnf upgrade -y
-# RUN dnf check-update || true && dnf install -y \
-#     cmake \
-#     make \
-#     automake \
-#     gcc \
-#     gcc-c++ \
-#     kernel-devel \
-#     python3 \
-#     python3-devel \
-#     python3-pip \
-#     curl \
-#     tree \
-#     git \
-#     clang
-ENV SHELL /bin/bash
+RUN dnf check-update || true && dnf install -y \
+    bash-completion \
+    tree \
+    git \
+    openssh-clients \
+    cmake \
+    @development-tools \
+    python3 \
+    python3-devel \
+    python3-pip
+RUN rm -rf /var/lib/apt/lists/*
 
 USER $USERNAME
-
+ENV SHELL /bin/bash
 CMD ["/bin/bash"]
+
+# Use dotfiles
+# RUN git clone --recursive https://github.com/ToshikiNakamura0412/dotfiles.git ~/dotfiles
+# RUN ~/dotfiles/install.sh
+# RUN ~/dotfiles/scripts/change_tmux_conf.sh C-q snow
+# ENV SHELL /bin/zsh
+# CMD ["/bin/zsh"]
