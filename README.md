@@ -81,10 +81,9 @@ make clean
 | [noetic-cuda-opencv](noetic-cuda-opencv) | Ubuntu20.04 | zsh | noetic-cuda (Custom) | ROS1 Noetic + CUDA-11.6.1-devel + OpenCV-5.x | [README](noetic-cuda-opencv/README.md) |
 | [noetic-pcl10](noetic-pcl10) | Ubuntu20.04 | zsh | noetic (Custom) | ROS1 Noetic + PCL10 | [README](noetic-pcl10/README.md) |
 | [noetic-pcl14](noetic-pcl14) | Ubuntu20.04 | zsh | noetic (Custom) | ROS1 Noetic + PCL14 | [README](noetic-pcl14/README.md) |
+| [opensuse-leap15.6](opensuse-leap15.6) | OpenSUSE Leap15.6 | zsh | [opensuse/leap (Official)](https://hub.docker.com/r/opensuse/leap) |  |  |
 | [ubuntu20.04](ubuntu20.04) | Ubuntu20.04 | zsh | [ubuntu (Official)](https://hub.docker.com/_/ubuntu) |  |  |
 | [ubuntu22.04](ubuntu22.04) | Ubuntu22.04 | zsh | [ubuntu (Official)](https://hub.docker.com/_/ubuntu) |  |  |
-
-WIP : [opensuse](opensuse)
 
 Alpine does not yet support nvidia-container-runtime
 
