@@ -2,7 +2,6 @@ SCRIPT_DIR=$(cd $(dirname $0); pwd)
 DISTROS=$(ls -d ${SCRIPT_DIR}/../*/ | sed 's|'${SCRIPT_DIR}\/..\/'||g' | sed 's/\///g')
 INVALID_DISTROS=(
     "scripts"
-    "opensuse"
 )
 
 ERROR_COUNT_OF_DELETE_LINES=0
