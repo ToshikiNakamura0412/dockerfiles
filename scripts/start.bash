@@ -24,6 +24,8 @@ function update_os(){
         sudo apt update
     elif [[ ${distro} = "alpine" ]]; then
         sudo apk update
+    elif [[ ${distro} == "fedora" ]]; then
+        sudo dnf check-update || true
     fi
 }
 
