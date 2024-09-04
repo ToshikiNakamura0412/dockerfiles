@@ -25,7 +25,7 @@ function update_os(){
     elif [[ ${distro} = "alpine" ]]; then
         sudo apk update
     elif [[ ${distro} == "fedora" ]]; then
-        sudo dnf check-update || true
+        sudo dnf check-update
     fi
 }
 
