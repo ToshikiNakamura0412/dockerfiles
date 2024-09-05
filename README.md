@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-- Docker of some Linux distribution
+- Development environment using Docker for [some Linux distributions](#docker)
 - [dotfiles](https://github.com/ToshikiNakamura0412/dotfiles.git) is included in the image
   - tmux prefix set to `C-q`
 
