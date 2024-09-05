@@ -22,7 +22,7 @@ RUN apk update && apk add --no-cache \
     python3-dev \
     py3-pip
 RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
-RUN rm -rf /var/lib/apt/lists/*
+RUN rm -rf /var/cache/apk/*
 
 USER $USERNAME
 ENV SHELL /bin/bash
