@@ -22,7 +22,7 @@ RUN dnf check-update || true && dnf install -y --setopt=install_weak_deps=False 
     python3 \
     python3-devel \
     python3-pip
-RUN rm -rf /var/lib/apt/lists/*
+RUN rm -rf /var/cache/dnf/*
 
 USER $USERNAME
 ENV SHELL /bin/bash

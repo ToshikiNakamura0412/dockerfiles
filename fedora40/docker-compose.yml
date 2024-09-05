@@ -27,11 +27,8 @@ services:
         source: *WORKSPACE_SOURCE
         target: /home/user/ws
       - type: volume
-        source: apt-cache-apt-lists
-        target: /var/lib/apt/lists
-      - type: volume
-        source: apt-cache-apt-archives
-        target: /var/cache/apt/archives
+        source: dnf-cache
+        target: /var/cache/dnf
     working_dir: /home/user/ws
     command: /bin/bash /home/user/start.bash
     deploy:
@@ -43,7 +40,5 @@ services:
               capabilities: [ gpu ]
 
 volumes:
-  apt-cache-apt-lists:
-    name: fedora40-apt-cache-apt-lists
-  apt-cache-apt-archives:
-    name: fedora40-apt-cache-apt-archives
+  dnf-cache:
+    name: fedora40-dnf-cache
