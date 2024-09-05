@@ -11,7 +11,7 @@ RUN addgroup -g $USER_GID -S $USERNAME \
     && echo "$USERNAME:$USERNAME" | chpasswd \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 RUN apk update && apk upgrade
-RUN apk update && apk add \
+RUN apk update && apk add --no-cache \
     bash-completion \
     tree \
     git \

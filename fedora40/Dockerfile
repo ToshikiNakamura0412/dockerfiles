@@ -12,7 +12,7 @@ RUN groupadd -g $USER_GID $USERNAME \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 RUN dnf check-update || true && dnf upgrade -y
-RUN dnf check-update && dnf install -y \
+RUN dnf check-update || true && dnf install -y --setopt=install_weak_deps=False \
     bash-completion \
     tree \
     git \
