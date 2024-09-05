@@ -27,11 +27,8 @@ services:
         source: *WORKSPACE_SOURCE
         target: /home/user/ws
       - type: volume
-        source: apt-cache-apt-lists
-        target: /var/lib/apt/lists
-      - type: volume
-        source: apt-cache-apt-archives
-        target: /var/cache/apt/archives
+        source: zypp-cache
+        target: /var/cache/zypp
     working_dir: /home/user/ws
     command: /bin/bash /home/user/start.bash
     deploy:
@@ -43,7 +40,5 @@ services:
               capabilities: [ gpu ]
 
 volumes:
-  apt-cache-apt-lists:
-    name: opensuse-leap15.6-apt-cache-apt-lists
-  apt-cache-apt-archives:
-    name: opensuse-leap15.6-apt-cache-apt-archives
+  zypp-cache:
+    name: opensuse-leap15.6-zypp-cache
