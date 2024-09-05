@@ -26,11 +26,11 @@ services:
         source: *WORKSPACE_SOURCE
         target: /home/user/ws
       - type: volume
-        source: apk-cache-apk
+        source: apk-cache
         target: /var/cache/apk
     working_dir: /home/user/ws
     command: /bin/bash /home/user/start.bash
 
 volumes:
-  apk-cache-apk:
-    name: alpine3.17-apk-cache-apk
+  apk-cache:
+    name: alpine3.17-apk-cache
