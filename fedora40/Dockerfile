@@ -30,7 +30,7 @@ CMD ["/bin/bash"]
 
 # Use dotfiles
 RUN git clone --recursive https://github.com/ToshikiNakamura0412/dotfiles.git ~/dotfiles
-RUN ~/dotfiles/install.sh
-RUN ~/dotfiles/scripts/change_tmux_conf.sh C-q snow
+RUN ~/dotfiles/install.bash
+RUN ~/dotfiles/scripts/setup_tmux.bash C-q snow
 ENV SHELL /bin/zsh
 CMD ["/bin/zsh"]
