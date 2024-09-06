@@ -1,0 +1,49 @@
+x-workspace-source: &WORKSPACE_SOURCE "~/ws"
+
+services:
+  ws:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ipc: host
+    tty: true
+    privileged: true
+    environment:
+      TERM: screen-256color
+      LANG: C.UTF-8
+      DISPLAY: $DISPLAY
+      NVIDIA_DRIVER_CAPABILITIES: all
+    volumes:
+      - type: bind
+        source: /tmp/.X11-unix
+        target: /tmp/.X11-unix
+      - type: bind
+        source: ~/dockerfiles/scripts/start.bash
+        target: /home/user/start.bash
+      - type: bind
+        source: ~/dockerfiles/scripts/install_vscode_extensions.sh
+        target: /home/user/install_vscode_extensions.sh
+      - type: bind
+        source: *WORKSPACE_SOURCE
+        target: /home/user/ws
+      - type: volume
+        source: pacman-cache-pacman-pkg
+        target: /var/cache/pacman/pkg
+      - type: volume
+        source: pacman-cache-pacman-sync
+        target: /var/lib/pacman/sync
+    working_dir: /home/user/ws
+    command: /bin/bash /home/user/start.bash
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]
+
+volumes:
+  pacman-cache-pacman-pkg:
+    name: archlinux-pacman-cache-pacman-pkg
+  pacman-cache-pacman-sync:
+    name: archlinux-pacman-cache-pacman-sync
