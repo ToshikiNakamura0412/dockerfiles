@@ -24,6 +24,8 @@ function update_os(){
         sudo apt update
     elif [[ ${distro} = "alpine" ]]; then
         sudo apk update
+    elif [[ ${distro} = "arch" ]]; then
+        sudo pacman -Sy
     elif [[ ${distro} == "fedora" ]] || [[ ${distro} == "centos" ]]; then
         sudo dnf check-update
     elif [[ ${distro} == "opensuse-leap" ]]; then
