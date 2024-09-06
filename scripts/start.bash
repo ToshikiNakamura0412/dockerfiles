@@ -24,7 +24,7 @@ function update_os(){
         sudo apt update
     elif [[ ${distro} = "alpine" ]]; then
         sudo apk update
-    elif [[ ${distro} == "fedora" ]]; then
+    elif [[ ${distro} == "fedora" ]] || [[ ${distro} == "centos" ]]; then
         sudo dnf check-update
     elif [[ ${distro} == "opensuse-leap" ]]; then
         sudo zypper refresh

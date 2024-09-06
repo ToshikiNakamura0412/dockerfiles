@@ -14,6 +14,7 @@
 ### Editor
 - VSCode
 - Neovim (Not support completion: ROS2)
+  - CentOS Stream: Not support Neovim. Please use Vim.
 
 ## Prerequisites
 ### Common
@@ -73,6 +74,7 @@ make clean
 |   | Distro | Default Shell | Base Image | Contents | README |
 |---|---|---|---|---|---|
 | [alpine3.17](alpine3.17) | Alpine3.17 | zsh | [alpine (Official)](https://hub.docker.com/_/alpine) |  |  |
+| [centos-stream9](centos-stream9) | CentOS Stream9 | zsh | [centos (Official)](https://quay.io/repository/centos/centos) |  |  |
 | [debian12](debian12) | Debian12 | zsh | [debian (Official)](https://hub.docker.com/_/debian) |  |  |
 | [fedora40](fedora40) | Fedora40 | zsh | [fedora (Official)](https://hub.docker.com/_/fedora) |  |  |
 | [humbe](humble) | Ubuntu22.04 | zsh | [ros (Official)](https://hub.docker.com/_/ros) | ROS2 Humble |  |
