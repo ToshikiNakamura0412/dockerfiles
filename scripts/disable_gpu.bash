@@ -31,6 +31,7 @@ function show_usage() {
 function disable_gpu() {
     delete_lines_all_distros ${TARGET_FILE_NAME} "${TARGET_STRINGS[@]}"
 
+    ERROR_COUNT_OF_DELETE_LINES=$((ERROR_COUNT_OF_DELETE_LINES - ${#DISTROS_NOT_SUPPORT_GPU[@]}))
     if [[ ${ERROR_COUNT_OF_DELETE_LINES} -eq 0 ]]; then
         echo ""
         echo "Disabled GPU"
