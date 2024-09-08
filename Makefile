@@ -34,7 +34,7 @@ setup_gui:
 	@$(scripts_dir)/setup_gui.bash $(arg)
 
 setup:
-	@if [ "$(uname)" = "Darwin" ]; then $(scripts_dir)/disable_gpu.bash; fi
+	@if [ "$(shell uname)" = "Darwin" ]; then $(scripts_dir)/disable_gpu.bash; fi
 	@$(scripts_dir)/setup.bash $(arg)
 	@$(scripts_dir)/setup_gui.bash
 
