@@ -2,7 +2,10 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+![image](https://github.com/ToshikiNakamura0412/dockerfiles/wiki/images/dockerfiles.png)
+
 - Development environment using Docker for [some Linux distributions](#docker)
+- You can use GUI applications without setting up xhost.
 - [dotfiles](https://github.com/ToshikiNakamura0412/dotfiles.git) is included in the image
   - tmux prefix set to `C-q`
 
