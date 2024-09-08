@@ -1,7 +1,7 @@
 scripts_dir := scripts
 arg :=
 
-.PHONY: help change_root_dir disable_gpu select_shell setup sync_git_user clean
+.PHONY: help change_root_dir disable_gpu select_shell setup_gui setup sync_git_user clean
 
 help:
 	@echo "Usage: make [target] [arg=<arg>]"
@@ -12,6 +12,7 @@ help:
 	@echo "    change_root_dir  change root directory for mount (arg=<new_root_dir>)"
 	@echo "    disable_gpu      disable gpu ([option] arg=enable_gpu)"
 	@echo "    select_shell     select shell (arg=bash or zsh)"
+	@echo "    setup_gui        setup gui"
 	@echo "    sync_git_user    sync git user, email, and ssh key ([option] arg=disable)"
 	@echo "    clean            clean"
 	@echo ""
@@ -29,8 +30,12 @@ disable_gpu:
 select_shell:
 	@$(scripts_dir)/select_shell.bash $(arg)
 
+setup_gui:
+	@$(scripts_dir)/setup_gui.bash $(arg)
+
 setup:
 	@$(scripts_dir)/setup.bash $(arg)
+	@$(scripts_dir)/setup_gui.bash
 
 sync_git_user:
 	@$(scripts_dir)/sync_git_user.bash $(arg)
