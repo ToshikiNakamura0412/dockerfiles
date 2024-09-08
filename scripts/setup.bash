@@ -51,7 +51,7 @@ function main() {
     if [[ $1 == "-h" || $1 == "--help" ]]; then
         show_usage
     elif [[ ! -d ~/dockerfiles ]]; then
-        echo -e "\e[31mPlease move or clone the repository 'dockerfiles' to the home directory\e[m"
+        printf "\e[31mPlease move or clone the repository 'dockerfiles' to the home directory\e[m\n"
         exit 1
     elif [[ $1 == "clean" ]]; then
         remove_dir

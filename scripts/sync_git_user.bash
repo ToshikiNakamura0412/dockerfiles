@@ -29,10 +29,10 @@ function check_git_user() {
         return
     fi
     echo ""
-    echo -e "\e[31mPlease set your git user name and email\e[m"
+    printf "\e[31mPlease set your git user name and email\e[m\n"
     echo ""
-    echo -e "\e[33m\tgit config --global user.name \"Your Name\"\e[m"
-    echo -e "\e[33m\tgit config --global user.email \"Your Email\"\e[m"
+    printf "\e[33m\tgit config --global user.name \"Your Name\"\e[m\n"
+    printf "\e[33m\tgit config --global user.email \"Your Email\"\e[m\n"
     exit 1
 }
 
@@ -41,9 +41,9 @@ function check_ssh_key() {
         return
     fi
     echo ""
-    echo -e "\e[31mPlease create your ssh key\e[m"
+    printf "\e[31mPlease create your ssh key\e[m\n"
     echo ""
-    echo -e "\e[33m\tssh-keygen"
+    printf "\e[33m\tssh-keygen\n"
     exit 1
 }
 
@@ -67,9 +67,9 @@ function enable_git_sync() {
         echo ""
         echo "Enabled git sync"
         echo ""
-        echo -e "\e[33m(If you want to disable git sync, please run '$0 disable')\e[m"
+        printf "\e[33m(If you want to disable git sync, please run '$0 disable')\e[m\n"
     else
-        echo -e "\e[31mFailed to enable git sync\e[m"
+        printf "\e[31mFailed to enable git sync\e[m\n"
         exit 1
     fi
 }
@@ -83,7 +83,7 @@ function disable_git_sync() {
         echo "Disabled git sync"
     else
         echo ""
-        echo -e "\e[31mFailed to disable git sync or git sync is already disabled\e[m"
+        printf "\e[31mFailed to disable git sync or git sync is already disabled\e[m\n"
         exit 1
     fi
 }

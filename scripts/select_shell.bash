@@ -27,7 +27,7 @@ function change_shell() {
             delete_lines_all_distros ${TARGET_FILE_NAME} "${TARGET_STRING}"
             ;;
         *)
-            echo -e "\e[31mError: Invalid shell name: ${shell_name}\e[m"
+            printf "\e[31mError: Invalid shell name: ${shell_name}\e[m\n"
             show_usage
             exit 1
             ;;

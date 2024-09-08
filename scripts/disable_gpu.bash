@@ -36,7 +36,7 @@ function disable_gpu() {
         echo "Disabled GPU"
     else
         echo ""
-        echo -e "\e[31mFailed to disable GPU or GPU is already disabled\e[m"
+        printf "\e[31mFailed to disable GPU or GPU is already disabled\e[m\n"
         exit 1
     fi
 }
@@ -56,7 +56,7 @@ function enable_gpu() {
         echo "Enabled GPU"
     else
         echo ""
-        echo -e "\e[31mFailed to enable GPU\e[m"
+        printf "\e[31mFailed to enable GPU\e[m\n"
         exit 1
     fi
 }

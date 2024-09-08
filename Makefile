@@ -7,7 +7,7 @@ help:
 	@echo "Usage: make [target] [arg=<arg>]"
 	@echo ""
 	@echo "  targets:"
-	@echo "    setup \e[32m[default]\e[m  create directories for mount"
+	@printf "    setup \e[32m[default]\e[m  create directories for mount\n"
 	@echo "    help             show this help message"
 	@echo "    change_root_dir  change root directory for mount (arg=<new_root_dir>)"
 	@echo "    disable_gpu      disable gpu ([option] arg=enable_gpu)"
@@ -18,7 +18,7 @@ help:
 	@echo "  show help of target:"
 	@echo "    make [target] arg=-h"
 	@echo ""
-	@echo "For normal setup, only “\e[32mmake setup\e[m“ is required."
+	@printf "For normal setup, only “\e[32mmake setup\e[m“ is required.\n"
 
 change_root_dir:
 	@$(scripts_dir)/change_root_dir.bash $(arg)

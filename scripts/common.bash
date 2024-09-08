@@ -21,7 +21,7 @@ function get_distro() {
 function is_invalid_distro() {
     local distro=$1
     if [[ -z ${distro} ]]; then
-        echo -e "\e[31mError: distro is empty\e[m"
+        printf "\e[31mError: distro is empty\e[m\n"
         return 0
     fi
     for invalid_distro in ${INVALID_DISTROS[@]}; do
@@ -36,13 +36,13 @@ function is_invalid_distro() {
 function delete_lines() {
     local target_file=$1
     if [[ -z ${target_file} ]]; then
-        echo -e "\e[31mError: target_file is empty\e[m"
+        printf "\e[31mError: target_file is empty\e[m\n"
         return
     fi
     shift 1
     local target_strings=("$@")
     if [[ ${#target_strings[@]} -eq 0 ]]; then
-        echo -e "\e[31mError: target_strings is empty\e[m"
+        printf "\e[31mError: target_strings is empty\e[m\n"
         return
     fi
     local search_string=$(echo ${target_strings[${#target_strings[@]}-1]} | sed 's/\\//g' | sed 's/^ *//g')
@@ -64,13 +64,13 @@ function delete_lines() {
 function delete_lines_all_distros() {
     local file_name=$1
     if [[ -z ${file_name} ]]; then
-        echo -e "\e[31mError: file_name is empty\e[m"
+        printf "\e[31mError: file_name is empty\e[m\n"
         return
     fi
     shift 1
     local target_strings=("$@")
     if [[ ${#target_strings[@]} -eq 0 ]]; then
-        echo -e "\e[31mError: target_strings is empty\e[m"
+        printf "\e[31mError: target_strings is empty\e[m\n"
         return
     fi
 
@@ -86,18 +86,18 @@ function delete_lines_all_distros() {
 function insert_lines() {
     local target_file=$1
     if [[ -z ${target_file} ]]; then
-        echo -e "\e[31mError: target_file is empty\e[m"
+        printf "\e[31mError: target_file is empty\e[m\n"
         return
     fi
     local search_string=$2
     if [[ -z ${search_string} ]]; then
-        echo -e "\e[31mError: search_string is empty\e[m"
+        printf "\e[31mError: search_string is empty\e[m\n"
         return
     fi
     shift 2
     local target_strings=("$@")
     if [[ ${#target_strings[@]} -eq 0 ]]; then
-        echo -e "\e[31mError: target_strings is empty\e[m"
+        printf "\e[31mError: target_strings is empty\e[m\n"
         return
     fi
 
@@ -112,7 +112,7 @@ ${target_strings[i]}\\
                 sed -i "${target_line}a ${target_strings[i]}" ${target_file}
             fi
         else
-            echo -e "\e[33mError: '${search_string}' not found in ${target_file}. Failed to insert target strings.\e[m"
+            printf "\e[33mError: '${search_string}' not found in ${target_file}. Failed to insert target strings.\e[m\n"
             ERROR_COUNT_OF_INSERT_LINES=$((ERROR_COUNT_OF_INSERT_LINES + 1))
         fi
     done
@@ -121,18 +121,18 @@ ${target_strings[i]}\\
 function insert_lines_all_distros() {
     local file_name=$1
     if [[ -z ${file_name} ]]; then
-        echo -e "\e[31mError: file_name is empty\e[m"
+        printf "\e[31mError: file_name is empty\e[m\n"
         return
     fi
     local search_string=$2
     if [[ -z ${search_string} ]]; then
-        echo -e "\e[31mError: search_string is empty\e[m"
+        printf "\e[31mError: search_string is empty\e[m\n"
         return
     fi
     shift 2
     local target_strings=("$@")
     if [[ ${#target_strings[@]} -eq 0 ]]; then
-        echo -e "\e[31mError: target_strings is empty\e[m"
+        printf "\e[31mError: target_strings is empty\e[m\n"
         return
     fi
 
