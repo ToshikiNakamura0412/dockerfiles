@@ -19,7 +19,7 @@ help:
 	@echo "  show help of target:"
 	@echo "    make [target] arg=-h"
 	@echo ""
-	@printf "For normal setup, only “\e[32mmake setup\e[m“ is required.\n"
+	@printf "For normal setup, only '\e[32mmake setup\e[m' is required.\n"
 
 change_root_dir:
 	@$(scripts_dir)/change_root_dir.bash $(arg)
