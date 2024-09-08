@@ -6,6 +6,8 @@
 
 - Development environment using Docker for [some Linux distributions](#docker)
 - You can use GUI applications without setting up xhost.
+  - Linux Only
+  - You use macOS, you need to set up xhost.
 - [dotfiles](https://github.com/ToshikiNakamura0412/dotfiles.git) is included in the image
   - tmux prefix set to `C-q`
 
