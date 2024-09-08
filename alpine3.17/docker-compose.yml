@@ -9,9 +9,9 @@ services:
     tty: true
     privileged: true
     environment:
+      DISPLAY: $DISPLAY
       TERM: screen-256color
       LANG: C.UTF-8
-      DISPLAY: $DISPLAY
     volumes:
       - type: bind
         source: /tmp/.X11-unix
