@@ -24,6 +24,7 @@ function setup_display() {
         echo "Set DISPLAY: host.docker.internal:0"
         echo ""
         printf "Please launch \e[33mXQuartz\e[m and allow connections from network clients.\n"
+        printf "Then, run '\e[33mxhost + localhost\e[m' in the terminal.\n"
     fi
     insert_lines_all_distros ${TARGET_FILE_NAME} ${INSERT_POINT_STRING} "${target_string}"
 }
