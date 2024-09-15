@@ -98,7 +98,8 @@ make clean
 | [ubuntu20.04](ubuntu20.04) | Ubuntu20.04 | zsh | [ubuntu (Official)](https://hub.docker.com/_/ubuntu) |  |  |
 | [ubuntu22.04](ubuntu22.04) | Ubuntu22.04 | zsh | [ubuntu (Official)](https://hub.docker.com/_/ubuntu) |  |  |
 
-Alpine does not yet support nvidia-container-runtime
+- Alpine does not yet support nvidia-container-runtime
+- macOS does not support ROS, so please use virtual machines like [UTM](https://mac.getutm.app/)
 
 ### Workspace
 - host:
