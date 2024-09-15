@@ -12,6 +12,11 @@
   - tmux prefix set to `C-q`
 
 ## Environment
+### OS
+- Linux
+- macOS (Not support GPU)
+  - Prerequisite: [XQuartz](https://www.xquartz.org/)
+
 ### Architecture
 - x86_64
 - arm64
