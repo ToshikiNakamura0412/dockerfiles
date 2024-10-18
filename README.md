@@ -44,21 +44,20 @@
 
 ## Installation
 ### Clone
-Please clone to your home directory
 ```bash
-git clone https://github.com/ToshikiNakamura0412/dockerfiles.git ~/dockerfiles
+git clone https://github.com/ToshikiNakamura0412/dockerfiles.git
 ```
 
 ### Setup
 #### Default
 create directories (e.g. [workspace](#workspace))
 ```bash
-cd ~/dockerfiles
+cd dockerfiles
 make setup # create directories
 ```
 #### Custom
 ```bash
-cd ~/dockerfiles
+cd dockerfiles
 make [target] [arg=<arg>]
 ...
 make setup # create directories
@@ -76,7 +75,7 @@ docker compose up [option -d]
 - remove directories (e.g. [workspace](#workspace)) and revert to the default state
   - **If the directories are not empty, they will not be deleted**
 ```bash
-cd ~/dockerfiles
+cd dockerfiles
 make clean
 ```
 
