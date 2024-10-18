@@ -1,4 +1,6 @@
 x-workspace-source: &WORKSPACE_SOURCE "~/ws"
+x-start-sh-source: &START_SH_SOURCE "~/dockerfiles/scripts/start.bash"
+x-vscode-extensions-installer-source: &VSCODE_EXTENSIONS_INSTALLER_SOURCE "~/dockerfiles/scripts/install_vscode_extensions.sh"
 
 services:
   ws:
@@ -17,10 +19,10 @@ services:
         source: /tmp/.X11-unix
         target: /tmp/.X11-unix
       - type: bind
-        source: ~/dockerfiles/scripts/start.bash
+        source: *START_SH_SOURCE
         target: /home/user/start.bash
       - type: bind
-        source: ~/dockerfiles/scripts/install_vscode_extensions.sh
+        source: *VSCODE_EXTENSIONS_INSTALLER_SOURCE
         target: /home/user/install_vscode_extensions.sh
       - type: bind
         source: *WORKSPACE_SOURCE
