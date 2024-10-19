@@ -91,6 +91,8 @@ make clean
 | [noetic](noetic) | Ubuntu20.04 | zsh | [ros (Official)](https://hub.docker.com/_/ros) | ROS1 Noetic |  |
 | [noetic-cuda](noetic-cuda) | Ubuntu20.04 | zsh | [cuda (Official)](https://hub.docker.com/r/nvidia/cuda) | ROS1 Noetic + CUDA-11.6.1-devel |  |
 | [noetic-cuda-opencv](noetic-cuda-opencv) | Ubuntu20.04 | zsh | noetic-cuda (Custom) | ROS1 Noetic + CUDA-11.6.1-devel + OpenCV-5.x | [README](noetic-cuda-opencv/README.md) |
+| [noetic-cudnn](noetic-cudnn) | Ubuntu20.04 | zsh | [cuda (Official)](https://hub.docker.com/r/nvidia/cuda) | ROS1 Noetic + CUDA-11.6.1-cuDNN8-devel |  |
+| [noetic-cudnn-opencv](noetic-cudnn-opencv) | Ubuntu20.04 | zsh | noetic-cudnn (Custom) | ROS1 Noetic + CUDA-11.6.1-cuDNN8-devel + OpenCV-5.x | [README](noetic-cudnn-opencv/README.md) |
 | [noetic-pcl10](noetic-pcl10) | Ubuntu20.04 | zsh | noetic (Custom) | ROS1 Noetic + PCL10 | [README](noetic-pcl10/README.md) |
 | [noetic-pcl14](noetic-pcl14) | Ubuntu20.04 | zsh | noetic (Custom) | ROS1 Noetic + PCL14 | [README](noetic-pcl14/README.md) |
 | [opensuse-leap15.6](opensuse-leap15.6) | OpenSUSE Leap15.6 | zsh | [opensuse/leap (Official)](https://hub.docker.com/r/opensuse/leap) |  |  |

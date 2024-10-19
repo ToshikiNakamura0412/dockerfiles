@@ -1,0 +1,63 @@
+x-workspace-source: &WORKSPACE_SOURCE "~/ros1_ws"
+x-bag-source: &BAG_SOURCE "~/bagfiles"
+x-pcd-source: &PCD_SOURCE "~/pcd"
+x-dataset-source: &DATASET_SOURCE "~/dataset"
+x-start-sh-source: &START_SH_SOURCE "~/dockerfiles/scripts/start.bash"
+x-vscode-extensions-installer-source: &VSCODE_EXTENSIONS_INSTALLER_SOURCE "~/dockerfiles/scripts/install_vscode_extensions.sh"
+
+services:
+  ws:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ipc: host
+    tty: true
+    privileged: true
+    environment:
+      DISPLAY: $DISPLAY
+      TERM: screen-256color
+      LANG: C.UTF-8
+      NVIDIA_DRIVER_CAPABILITIES: all
+    volumes:
+      - type: bind
+        source: /tmp/.X11-unix
+        target: /tmp/.X11-unix
+      - type: bind
+        source: *START_SH_SOURCE
+        target: /home/user/start.bash
+      - type: bind
+        source: *VSCODE_EXTENSIONS_INSTALLER_SOURCE
+        target: /home/user/install_vscode_extensions.sh
+      - type: bind
+        source: *WORKSPACE_SOURCE
+        target: /home/user/ws
+      - type: bind
+        source: *BAG_SOURCE
+        target: /home/user/bagfiles
+      - type: bind
+        source: *PCD_SOURCE
+        target: /home/user/pcd
+      - type: bind
+        source: *DATASET_SOURCE
+        target: /home/user/dataset
+      - type: volume
+        source: apt-cache-apt-lists
+        target: /var/lib/apt/lists
+      - type: volume
+        source: apt-cache-apt-archives
+        target: /var/cache/apt/archives
+    working_dir: /home/user/ws
+    command: /bin/bash /home/user/start.bash
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]
+
+volumes:
+  apt-cache-apt-lists:
+    name: ros-noetic-apt-cache-apt-lists
+  apt-cache-apt-archives:
+    name: ros-noetic-apt-cache-apt-archives
