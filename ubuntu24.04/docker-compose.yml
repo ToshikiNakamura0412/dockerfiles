@@ -22,21 +22,21 @@ services:
         target: /tmp/.X11-unix
       - type: bind
         source: *START_SH_SOURCE
-        target: /home/ubuntu/start.bash
+        target: ${MY_HOME}/start.bash
       - type: bind
         source: *VSCODE_EXTENSIONS_INSTALLER_SOURCE
-        target: /home/ubuntu/install_vscode_extensions.sh
+        target: ${MY_HOME}/install_vscode_extensions.sh
       - type: bind
         source: *WORKSPACE_SOURCE
-        target: /home/ubuntu/ws
+        target: ${MY_HOME}/ws
       - type: volume
         source: apt-cache-apt-lists
         target: /var/lib/apt/lists
       - type: volume
         source: apt-cache-apt-archives
         target: /var/cache/apt/archives
-    working_dir: /home/ubuntu/ws
-    command: /bin/bash /home/ubuntu/start.bash
+    working_dir: ${MY_HOME}/ws
+    command: /bin/bash ${MY_HOME}/start.bash
     deploy:
       resources:
         reservations:
