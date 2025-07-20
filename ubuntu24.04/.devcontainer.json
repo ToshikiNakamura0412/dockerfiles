@@ -1,0 +1,20 @@
+{
+    "name": "Ubuntu24.04 Dev Container",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "ws",
+    "workspaceFolder": "/home/ubuntu/ws",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.cpptools",
+                "ms-vscode.cpptools-extension-pack",
+                "ms-vscode.cpptools-themes",
+                "ms-python.python",
+                "ms-python.black-formatter",
+                "ms-python.isort",
+                "ms-python.flake8",
+                "ms-python.mypy-type-checker"
+            ]
+        }
+    }
+}

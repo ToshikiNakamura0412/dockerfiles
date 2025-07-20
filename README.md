@@ -98,6 +98,7 @@ make clean
 | [opensuse-leap15.6](opensuse-leap15.6) | OpenSUSE Leap15.6 | zsh | [opensuse/leap (Official)](https://hub.docker.com/r/opensuse/leap) |  |  |
 | [ubuntu20.04](ubuntu20.04) | Ubuntu20.04 | zsh | [ubuntu (Official)](https://hub.docker.com/_/ubuntu) |  |  |
 | [ubuntu22.04](ubuntu22.04) | Ubuntu22.04 | zsh | [ubuntu (Official)](https://hub.docker.com/_/ubuntu) |  |  |
+| [ubuntu24.04](ubuntu24.04) | Ubuntu24.04 | zsh | [ubuntu (Official)](https://hub.docker.com/_/ubuntu) |  |  |
 
 - Alpine does not yet support nvidia-container-runtime
 - macOS does not support ROS, so please use virtual machines like [UTM](https://mac.getutm.app/)
