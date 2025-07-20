@@ -2,7 +2,7 @@
     "name": "Ubuntu24.04 Dev Container",
     "dockerComposeFile": "docker-compose.yml",
     "service": "ws",
-    "workspaceFolder": "/home/user/ws",
+    "workspaceFolder": "/home/ubuntu/ws",
     "customizations": {
         "vscode": {
             "extensions": [
