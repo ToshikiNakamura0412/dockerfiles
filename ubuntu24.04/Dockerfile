@@ -13,20 +13,29 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     tree \
     git \
     openssh-client \
+    ca-certificates \
     cmake \
     build-essential \
     python3 \
     python3-dev \
-    python3-pip
+    python3-pip \
+    python3-venv
+
 RUN rm -rf /var/lib/apt/lists/*
 RUN rm /etc/apt/apt.conf.d/docker-clean
 
 USER ${USERNAME}
+ENV HOME=/home/${USERNAME}
+RUN python3 -m venv $HOME/venv && \
+    $HOME/venv/bin/python3 -m pip install --upgrade pip setuptools wheel
+ENV PATH="$HOME/venv/bin:$PATH"
 ENV SHELL /bin/bash
+CMD ["/bin/bash"]
+
 
 # Use dotfiles
 RUN git clone --recursive https://github.com/ToshikiNakamura0412/dotfiles.git ~/dotfiles
 RUN ~/dotfiles/install.bash
 RUN ~/dotfiles/scripts/setup_tmux.bash C-q snow
-
-CMD ["/bin/bash"]
+ENV SHELL /bin/zsh
+CMD ["/bin/zsh"]
