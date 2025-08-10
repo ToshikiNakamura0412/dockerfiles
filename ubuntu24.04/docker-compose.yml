@@ -9,23 +9,31 @@ services:
       dockerfile: Dockerfile
     ipc: host
     tty: true
+    network_mode: host
     privileged: true
     environment:
-      SHELL: /bin/zsh
       DISPLAY: $DISPLAY
       TERM: screen-256color
       LANG: C.UTF-8
       NVIDIA_DRIVER_CAPABILITIES: all
+      XAUTHORITY: $XAUTHORITY
     volumes:
       - type: bind
         source: /tmp/.X11-unix
         target: /tmp/.X11-unix
+        read_only: true
+      - type: bind
+        source: $XAUTHORITY
+        target: $XAUTHORITY
+        read_only: true
       - type: bind
         source: *START_SH_SOURCE
         target: ${MY_HOME}/start.bash
+        read_only: true
       - type: bind
         source: *VSCODE_EXTENSIONS_INSTALLER_SOURCE
         target: ${MY_HOME}/install_vscode_extensions.sh
+        read_only: true
       - type: bind
         source: *WORKSPACE_SOURCE
         target: ${MY_HOME}/ws
