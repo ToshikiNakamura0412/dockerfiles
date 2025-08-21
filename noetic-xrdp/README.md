@@ -20,7 +20,7 @@ docker compose up -d
 ```
 
 2. Connect to XRDP
-   - Use a remote desktop client (like Windows App, etc.)
+   - Use a remote desktop client (e.g., Windows App)
    - Connect to `localhost:4389` (or the IP address of your Docker host if not running locally)
    - Login with username `user` and password `user`
 
