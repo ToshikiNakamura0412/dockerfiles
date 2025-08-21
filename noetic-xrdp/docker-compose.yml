@@ -54,6 +54,13 @@ services:
         max-size: "10m"
         max-file: "3"
     command: /bin/bash -c "/home/user/xrdp-xfce-setup/start-xrdp.sh & /home/user/start.bash"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]
 
 volumes:
   apt-cache-apt-lists:
