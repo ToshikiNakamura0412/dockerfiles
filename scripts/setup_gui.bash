@@ -3,6 +3,11 @@
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
 source ${SCRIPT_DIR}/common.bash
 
+DISTORS_NOT_COVERED_BY_GUI_SETUP=(
+    "noetic-xrdp"
+)
+INVALID_DISTROS+=("${DISTORS_NOT_COVERED_BY_GUI_SETUP}")
+
 TARGET_FILE_NAME="docker-compose.yml"
 DELETE_KEY="DISPLAY"
 INSERT_POINT_STRING="environment:"
