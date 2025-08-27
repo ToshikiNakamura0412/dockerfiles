@@ -47,6 +47,24 @@ function remove_dir() {
     echo "Directories removed"
 }
 
+function setup_Xauthority() {
+    local target_string="export XAUTHORITY=\${XAUTHORITY:-\$HOME/.Xauthority}"
+    local target_files=(
+      "$HOME/.bashrc"
+      "$HOME/.zshrc"
+    )
+
+    for target_file in "${target_files[@]}"; do
+      if [[ -e "${target_file}" ]]; then
+        if ! grep -q "${target_string}" ${target_file}; then
+          echo "${target_string}" >> "${target_file}"
+        fi
+      fi
+    done
+
+    echo "Setup Xauthority"
+}
+
 function main() {
     if [[ $1 == "-h" || $1 == "--help" ]]; then
         show_usage
@@ -57,6 +75,7 @@ function main() {
         remove_dir
     else
         make_dir
+        setup_Xauthority
     fi
 }
 
