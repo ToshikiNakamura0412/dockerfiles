@@ -1,4 +1,7 @@
 # ROS Noetic XRDP
+
+![image](https://github.com/ToshikiNakamura0412/xrdp-xfce-setup/wiki/images/demo.png)
+
 ## Build
 ### build image `noetic-ws`
 If you already build this image, skip this process.
@@ -28,3 +31,5 @@ docker compose up -d
 - Configure your remote desktop client for better experience:
    - Resolution (e.g., 1920x1080)
    - Color quality (e.g., 16 bit)
+- To keep your display number fixed, when logging out, do not press the X button. Instead, go to [user] -> [Log Out...] -> [uncheck “Save session for logins”] -> [Log Out].
+   - Otherwise, a zombie session (new display) will be created each time you restart.
