@@ -95,13 +95,16 @@ make clean
 | [noetic-cudnn-opencv](noetic-cudnn-opencv) | Ubuntu20.04 | zsh | noetic-cudnn (Custom) | ROS1 Noetic + CUDA-11.6.1-cuDNN8-devel + OpenCV-5.x | [README](noetic-cudnn-opencv/README.md) |
 | [noetic-pcl10](noetic-pcl10) | Ubuntu20.04 | zsh | noetic (Custom) | ROS1 Noetic + PCL10 | [README](noetic-pcl10/README.md) |
 | [noetic-pcl14](noetic-pcl14) | Ubuntu20.04 | zsh | noetic (Custom) | ROS1 Noetic + PCL14 | [README](noetic-pcl14/README.md) |
+| [noetic-xrdp](noetic-xrdp) | Ubuntu20.04 | zsh | noetic (Custom) | ROS1 Noetic + XRDP | [README](noetic-xrp/README.md) |
 | [opensuse-leap15.6](opensuse-leap15.6) | OpenSUSE Leap15.6 | zsh | [opensuse/leap (Official)](https://hub.docker.com/r/opensuse/leap) |  |  |
 | [ubuntu20.04](ubuntu20.04) | Ubuntu20.04 | zsh | [ubuntu (Official)](https://hub.docker.com/_/ubuntu) |  |  |
 | [ubuntu22.04](ubuntu22.04) | Ubuntu22.04 | zsh | [ubuntu (Official)](https://hub.docker.com/_/ubuntu) |  |  |
 | [ubuntu24.04](ubuntu24.04) | Ubuntu24.04 | zsh | [ubuntu (Official)](https://hub.docker.com/_/ubuntu) |  |  |
 
 - Alpine does not yet support nvidia-container-runtime
-- macOS does not support ROS, so please use virtual machines like [UTM](https://mac.getutm.app/)
+- macOS does not support ROS with X11, so please use the following methods to use GUI applications.
+  - XRDP (e.g. [noetic-xrdp](noetic-xrdp))
+  - virtual machines like [UTM](https://mac.getutm.app/)
 
 ### Workspace
 - host:
