@@ -37,7 +37,7 @@ CMD ["/bin/bash"]
 
 
 # Use dotfiles
-RUN git clone --recursive https://github.com/ToshikiNakamura0412/dotfiles.git ~/dotfiles
+RUN git clone --recursive --single-branch --depth 1 https://github.com/ToshikiNakamura0412/dotfiles.git ~/dotfiles
 RUN ~/dotfiles/install.bash
 RUN ~/dotfiles/scripts/setup_tmux.bash C-q snow
 RUN echo "source /opt/ros/${ROS_DISTRO}/setup.zsh" >> ~/.zshrc
