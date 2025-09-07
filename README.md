@@ -34,6 +34,9 @@
 ### GPU
 #### Use
 - nvidia-container-runtime
+  ```bash
+    sudo apt install nvidia-container-runtime
+  ```
   - If you can't install this package, install [nvidia-container-toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#installing-with-apt) before installing this package.
   - If you can't use GPU, execute the following command:
     ```bash
