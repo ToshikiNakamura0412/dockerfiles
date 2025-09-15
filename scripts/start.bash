@@ -37,7 +37,7 @@ function install_ros_dependencies(){
     if [[ ! -d /opt/ros ]] || [[ -z ${ROS_DISTRO} ]]; then
         return
     fi
-    sudo rosdep update
+    sudo rosdep update --rosdistro ${ROS_DISTRO}
     sudo rosdep install -riy --from-paths /home/user/ws/src --rosdistro ${ROS_DISTRO}
 }
 
