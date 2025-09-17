@@ -14,6 +14,7 @@ help:
 	@echo "    select_shell     select shell (arg=bash or zsh)"
 	@echo "    setup_gui        setup gui"
 	@echo "    sync_git_user    sync git user, email, and ssh key ([option] arg=disable)"
+	@echo "    sync_xauth       sync xauth for gui"
 	@echo "    clean            clean"
 	@echo ""
 	@echo "  show help of target:"
@@ -40,6 +41,9 @@ setup:
 
 sync_git_user:
 	@$(scripts_dir)/sync_git_user.bash $(arg)
+
+sync_xauth:
+	@$(scripts_dir)/sync_xauth.bash $(arg)
 
 clean:
 	@$(scripts_dir)/setup.bash clean
