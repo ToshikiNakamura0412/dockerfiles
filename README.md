@@ -67,7 +67,7 @@ make setup # create directories
 ```
 - show help of make: `make help`
 - show help of target: `make [target] arg=-h`
-  - target: `change_root_dir`, `disable_gpu`, `select_shell`, `setup`, `sync_git_user`
+  - target: `change_root_dir`, `disable_gpu`, `select_shell`, `setup`, `sync_git_user`, `sync_xauth`
 
 **If you already start the container, you need to execute the following command to reflect the changes.**
 ```bash
