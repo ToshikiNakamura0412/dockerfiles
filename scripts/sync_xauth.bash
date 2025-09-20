@@ -12,17 +12,17 @@ TARGET_STRINGS1=(
   "\    network_mode: host"
 )
 
-INSERT_POINT_STRING2+=" environment:"
+INSERT_POINT_STRING2=" environment:"
 # You should set unique element in the target file at the end of the array to avoid deleting other lines.
 # TARGET_STRINGS is inserted once in the line following INSERT_POINT_STRING.
-TARGET_STRINGS2+=(
+TARGET_STRINGS2=(
   "\      XAUTHORITY: \$XAUTHORITY"
 )
 
-INSERT_POINT_STRING3+=" volumes:"
+INSERT_POINT_STRING3=" volumes:"
 # You should set unique element in the target file at the end of the array to avoid deleting other lines.
 # TARGET_STRINGS is inserted once in the line following INSERT_POINT_STRING.
-TARGET_STRINGS3+=(
+TARGET_STRINGS3=(
   "\      - type: bind"
   "\        source: \$XAUTHORITY"
   "\        target: \$XAUTHORITY"
