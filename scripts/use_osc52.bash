@@ -3,10 +3,14 @@
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
 source ${SCRIPT_DIR}/common.bash
 
+DISTORS_NOT_COVERED_BY_DOTFILES_SETUP=(
+  ""
+)
+INVALID_DISTROS+=("${DISTORS_NOT_COVERED_BY_GUI_SETUP}")
+
 TARGET_FILE_NAME="Dockerfile"
 INSERT_POINT_STRING="~/dotfiles/install.bash"
-# You should set unique element in the target file at the end of the array to avoid deleting other lines.
-# TARGET_STRINGS_GIT is inserted once in the line following INSERT_POINT_STRING_GIT.
+# TARGET_STRING is inserted once in the line following INSERT_POINT_STRING.
 TARGET_STRING="\~/dotfiles/nvim/scripts/use_osc52.sh"
 
 delete_lines_all_distros ${TARGET_FILE_NAME} "${TARGET_STRING}"
