@@ -12,5 +12,7 @@ TARGET_STRING="\~/dotfiles/nvim/scripts/use_osc52.sh"
 delete_lines_all_distros ${TARGET_FILE_NAME} "${TARGET_STRING}"
 insert_lines_all_distros ${TARGET_FILE_NAME} ${INSERT_POINT_STRING} "${TARGET_STRING}"
 
+echo ""
 echo "Use OSC52 for clipboard."
 echo "You can copy text from the container to the host clipboard using OSC52."
+echo ""
