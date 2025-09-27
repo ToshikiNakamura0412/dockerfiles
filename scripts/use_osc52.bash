@@ -4,7 +4,11 @@ SCRIPT_DIR=$(cd $(dirname $0); pwd)
 source ${SCRIPT_DIR}/common.bash
 
 DISTORS_NOT_COVERED_BY_DOTFILES_SETUP=(
-  ""
+  "noetic-cuda-opencv"
+  "noetic-cudnn-opencv"
+  "noetic-pcl10"
+  "noetic-pcl14"
+  "noetic-xrdp"
 )
 INVALID_DISTROS+=("${DISTORS_NOT_COVERED_BY_GUI_SETUP}")
 
