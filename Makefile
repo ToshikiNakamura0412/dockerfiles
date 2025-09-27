@@ -14,7 +14,7 @@ help:
 	@echo "    select_shell     select shell (arg=bash or zsh)"
 	@echo "    setup_gui        setup gui"
 	@echo "    sync_git_user    sync git user, email, and ssh key ([option] arg=disable)"
-	@echo "    sync_xauth       sync xauth for gui"
+	@echo "    sync_xauth       sync xauth for gui ([option] arg=disable)"
 	@echo "    clean            clean"
 	@echo ""
 	@echo "  show help of target:"
@@ -35,7 +35,10 @@ setup_gui:
 	@$(scripts_dir)/setup_gui.bash $(arg)
 
 setup:
-	@if [ "$(shell uname)" = "Darwin" ]; then $(scripts_dir)/disable_gpu.bash; fi
+	@if [ "$(shell uname)" = "Darwin" ]; then \
+		$(scripts_dir)/disable_gpu.bash; \
+		$(scripts_dir)/use_osc52.bash; \
+	fi
 	@$(scripts_dir)/setup.bash $(arg)
 	@$(scripts_dir)/setup_gui.bash
 
